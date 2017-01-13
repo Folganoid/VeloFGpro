@@ -1,0 +1,55 @@
+body {
+	background-color: lightgrey;
+}
+
+.hide {
+	display: none;
+}
+
+
+.authLine {	
+	
+	font-size: 12px;
+	background: -webkit-linear-gradient(top, #1C1C1C, #A4A4A4);
+/*	text-align: right;	*/
+	padding: 5px;
+	width: 100%;
+}
+
+.authLine span {
+	color: white;
+	font-weight: bold;
+}
+
+.authLine form input {
+	font-size: 12px;
+}
+
+a {
+	color: #A9E2F3;
+}
+
+a:hover {
+	color: #CEECF5;
+	font-weight: bold;
+}
+
+.txtWhite {
+	color: white;
+}
+
+.menuCenter {
+	padding: 3px;
+}
+
+
+.footer {
+	position: absolute;
+	bottom: 0px;
+	background: -webkit-linear-gradient(top, #1C1C1C, #A4A4A4);
+	font-size: 12px;
+	width: 100%;
+}
+
+
+
