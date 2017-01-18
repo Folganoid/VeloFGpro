@@ -22,14 +22,11 @@ class Route { // Роутинг.
 
 			};
 
-		if ($page == 'home') include ROOTDIR.'/pages/home.php';
-		else if ($page == 'register') include ROOTDIR.'/pages/register.php';
-		else if ($page == 'statistic') include ROOTDIR.'/pages/statistic.php';
-		else if ($page == 'chat') include ROOTDIR.'/pages/chat.php';
-		else if ($page == 'map') include ROOTDIR.'/pages/map.php';
-		else if ($page == 'items') include ROOTDIR.'/pages/items.php';
-		else if ($page == 'profile') include ROOTDIR.'/pages/profile.php';
-		else include ROOTDIR.'/pages/404.php';
+        if (file_exists(ROOTDIR.'/pages/'.$page.'.php')) {
+            include ROOTDIR.'/pages/'.$page.'.php';
+        }
+        else include ROOTDIR.'/pages/404.php';
+
 	}
 };
 

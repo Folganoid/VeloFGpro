@@ -2,7 +2,8 @@
 
 class Main {
 	public function db($str) {  // Выполнение запроса $str
-		$pdo = new PDO(PGSQL, USER, PASS);
+		$pdo = new PDO(SQL, USER, PASS);
+        $pdo->query("SET NAMES utf8");
 				$stmt = $pdo->prepare($str);
 				$stmt->execute();
 				$this->result = $stmt->fetchAll();

@@ -7,18 +7,16 @@
 
 session_start();
 
-require_once 'config.php';
+require_once __DIR__.'/config.php';
 
 function __autoload($classname) {
     $filename = __DIR__."/classes/". $classname .".php";
     require_once($filename);
 };
 
-
-
 	Login::IfCookieExist();
 	Login::EntExButton();
-	
+
 	new Route;
 
 ?>

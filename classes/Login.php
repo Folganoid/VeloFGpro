@@ -6,13 +6,18 @@ class Login extends Main { // проверка авторизации по БД.
 
 	public function __construct($login, $pass) { //вытаскиваем из базы логин/пароль
 
-		$this->db("SELECT login, pass FROM users WHERE login = '".$login."' AND pass = '".$pass."'");
+		$this->db("SELECT * FROM `users` WHERE `login` = '".$login."' AND `pass` = '".$pass."'");
 
 	}	
 
 	public function WriteCookies() { //записываем сессию и куки.
 			if (isset($this->result[0]['login'])) {
+                    $_SESSION['USER_ID'] = $this->result[0]['id'];
 					$_SESSION['USER_LOGIN'] = $this->result[0]['login'];
+                    $_SESSION['USER_NAME'] = $this->result[0]['name'];
+                    $_SESSION['USER_DATEREG'] = $this->result[0]['date'];
+                    $_SESSION['USER_EMAIL'] = $this->result[0]['email'];
+                    $_SESSION['USER_RANK'] = $this->result[0]['rank'];
 					
 					if (isset($_POST['check'])) {
 						setcookie('c1', static::GenPass(static::PostSecure($_POST['login']), static::PostSecure($_POST['password'])), strtotime('+30 days'), '/');

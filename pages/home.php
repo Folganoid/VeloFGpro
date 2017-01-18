@@ -1,7 +1,7 @@
 <?php
 
 function ShowContent() {
-	echo '<h2>Главная</h2>';
+	echo '<h2 align="center">Главная</h2>';
 };
 
 include ROOTDIR.'/layers/head.php';
