@@ -9,6 +9,8 @@ function ShowContent() {
 	';
 };
 
+MessageShow::set('lkjljlkjlkjl', 2);
+
 include ROOTDIR.'/layers/head.php';
 include ROOTDIR.'/layers/footer.php';
 new Reg;

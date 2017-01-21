@@ -18,7 +18,7 @@ class Login extends Main { // проверка авторизации по БД.
                     $_SESSION['USER_DATEREG'] = $this->result[0]['date'];
                     $_SESSION['USER_EMAIL'] = $this->result[0]['email'];
                     $_SESSION['USER_RANK'] = $this->result[0]['rank'];
-					
+
 					if (isset($_POST['check'])) {
 						setcookie('c1', static::GenPass(static::PostSecure($_POST['login']), static::PostSecure($_POST['password'])), strtotime('+30 days'), '/');
 						setcookie('c2', static::PostSecure($_POST['login']), strtotime('+30 days'), '/');
@@ -32,15 +32,15 @@ class Login extends Main { // проверка авторизации по БД.
 
 	public static function EntExButton() { // обработка кнопочек вход - выход
 		if (isset($_POST['enter']) && ($_POST['id_form'] == "auth")) {
-
 			static::CheckLogPassByDB(static::PostSecure($_POST['login']), static::PostSecure($_POST['password']));
-			exit(header('Location: '.$_SERVER['HTTP_REFERER']));				
+            if(!isset($_SESSION['USER_ID'])) {
+                MessageShow::set('Логин или пароль введены неверно !', 2);
+            };
 		}
 		else if(isset($_POST['exit']) && ($_POST['id_form'] == "auth")) {
 			setcookie('c1', "", time() - 3600);
 			setcookie('c2', "", time() - 3600);
 			$_SESSION = array();
-				exit(header('Location: '.$_SERVER['HTTP_REFERER']));
 		}
 	}
 

@@ -9,6 +9,10 @@ function ShowContent() {
 	';
 };
 
+if(isset($_SESSION['USER_ID'])) {}
+
+
+
 include ROOTDIR.'/layers/head.php';
 include ROOTDIR.'/layers/footer.php';
 new Reg;

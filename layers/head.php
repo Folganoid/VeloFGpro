@@ -27,6 +27,7 @@
 				</form>
 		
 		</div>
+            <?php MessageShow::get(); ?>
 		<br>
 			<br>
 
