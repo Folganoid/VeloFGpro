@@ -1,42 +1,35 @@
 body {
-	background-color: lightgrey;
+	background-image: url("../img/bc.png");
+	background-repeat: repeat;
+}
+
+.navbar {
+
+	font-size: 16px;
+	font-weight: bold;
 }
 
 .hide {
 	display: none;
 }
 
-
-.authLine {	
-	
+.navbar form {
 	font-size: 12px;
-	background: -webkit-linear-gradient(top, #1C1C1C, #A4A4A4);
-/*	text-align: right;	*/
-	padding: 5px;
-	width: 100%;
+	font-weight: normal;
 }
 
-.authLine span {
-	color: white;
-	font-weight: bold;
-}
-
-.authLine form input {
-	font-size: 12px;
-}
-
-a {
+.form-group a {
 	color: #A9E2F3;
 }
 
-a:hover {
+.form-group a:hover {
 	color: #CEECF5;
-	font-weight: bold;
 }
 
 .txtWhite {
 	color: white;
 }
+
 
 .menuCenter {
 	padding: 3px;
@@ -46,7 +39,7 @@ a:hover {
 .footer {
 	position: fixed;
 	bottom: 0px;
-	background: -webkit-linear-gradient(top, #1C1C1C, #A4A4A4);
+	background-color: #2E2E2E;
 	font-size: 12px;
 	width: 100%;
 }
@@ -58,7 +51,13 @@ a:hover {
 	font-weight: bold;
 	color: white;
 	position: fixed;
-	bottom: 18px;
+	top: 50px;
+}
+
+.stattable tr td{
+	padding-left: 10px;
+	padding-right: 10px;
+	text-align: center;
 }
 
 

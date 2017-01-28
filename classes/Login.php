@@ -22,6 +22,7 @@ class Login extends Main { // проверка авторизации по БД.
 					if (isset($_POST['check'])) {
 						setcookie('c1', static::GenPass(static::PostSecure($_POST['login']), static::PostSecure($_POST['password'])), strtotime('+30 days'), '/');
 						setcookie('c2', static::PostSecure($_POST['login']), strtotime('+30 days'), '/');
+                        MessageShow::set('Вы вошли как '.$_SESSION['USER_LOGIN'], 3);
 					};
 					unset($this->result); // обнуляем
 			}

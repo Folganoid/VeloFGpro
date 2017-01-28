@@ -6,3 +6,6 @@
 	</body>
 
 </html>
+
+
+        <script src="/js/common.js"></script>

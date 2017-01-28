@@ -17,7 +17,7 @@ class Route { // Роутинг.
 				$page = substr($_SERVER['REQUEST_URI'], 1);
 
 					if(!$this->Correct_path($url)){
-    					exit('error URL');
+                        MessageShow::set('Неправильная ссылка', 1);
 					}
 
 				$this->url_parts = explode("/", $page);
