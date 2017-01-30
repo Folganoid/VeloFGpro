@@ -1,7 +1,7 @@
 (function(){
 
     setTimeout(function(){
-        $('.message').fadeOut(500);
-    }, 3000);
+        $('.message').fadeOut(1000);
+    }, 5000);
 
 })();

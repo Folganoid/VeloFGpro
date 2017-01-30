@@ -6,6 +6,7 @@
     <link href="/css/style.css" rel="stylesheet">
     <script src="/js/jquery-3.1.1.min.js"></script>
     <script src="/js/bootstrap.js"></script>
+    <script src="/js/angular.min.js"></script>
 
 		<title>VeloFG</title>
 	</head>

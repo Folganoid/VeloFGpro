@@ -1,7 +1,7 @@
 <?php
 
 
-class MessageShow {
+class MessageShow { //создает полосу сообщений
 
     public static function set($text = '', $num = 0)
     {
