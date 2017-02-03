@@ -13,6 +13,7 @@ public function __construct() {
 		$pass1 = static::GenPass($lg, static::PostSecure($_POST['pass1']));
 		$pass2 = static::GenPass($lg, static::PostSecure($_POST['pass2']));
 		$eml = static::PostSecure($_POST['email']);
+        $yr = static::PostSecure($_POST['year']);
 		
 			$this->db("SELECT `login`, `email` FROM `users` WHERE `login` = '".$lg."' OR `email` = '".$eml."';");
 
@@ -26,20 +27,15 @@ public function __construct() {
                 }
 				else {
 			
-			$this->db("INSERT INTO `users` (`id`, `login`, `name`, `pass`, `date`, `email`, `rank`) VALUES (NULL, '".$lg."', '".$nm."', '".$pass1."', NOW(), '".$eml."', 0);");
-				setcookie('c1', $pass1, strtotime('+30 days'), '/');
+			$this->db("INSERT INTO `users` (`id`, `login`, `name`, `pass`, `date`, `email`, `rank`, `year`) VALUES (NULL, '".$lg."', '".$nm."', '".$pass1."', NOW(), '".$eml."', 0, ".$yr.");");
+
+                MessageShow::set('Регистрация прошла успешно.', 3);
+                setcookie('c1', $pass1, strtotime('+30 days'), '/');
 				setcookie('c2', $lg, strtotime('+30 days'), '/');
-				MessageShow::set('Регистрация прошла успешно.', 3);
-
-    		header('Location: /');
-
-
-		};
+                exit(header('Location: /'));
+		        };
 	};
 }
-
 };
-
-
 
 ?>

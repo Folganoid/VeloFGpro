@@ -6,6 +6,10 @@ if(isset($_SESSION['USER_ID'])) {
     function ShowContent()
     {
         echo '
+
+            <script src="/js/highcharts.js"></script>
+            <script src="/js/exporting.js"></script>
+
 			<h2 align="center">Статистика ' . $_SESSION['USER_NAME'] . '</h2>
 			';
         $statOdo = new Stat();
@@ -13,27 +17,40 @@ if(isset($_SESSION['USER_ID'])) {
         $statYear = new Stat();
         $statYear->db('SELECT year, bike, dist FROM yeardata WHERE userid = ' . $_SESSION['USER_ID'].' ORDER BY year DESC');
 
-       /*
-        echo '<div class="stattable"><table border="1">';
-        foreach ($statOdo->result as $k) {
-        echo    '
-                <tr>
-                    <td>'.$k['date'].'</td><td>'.$k['prim'].'</td><td>'.$k['time'].'</td><td>'.$k['dist'].'</td>
-                    <td>'.$k['bike'].'</td><td>'.$k['temp'].'</td><td><a href="#">Подробнее...</a></td>
-                </tr>
-                ';
-        }
-        echo '</table></div><br><br>';
-
-        */
-
-
         echo '
               <script src="/js/statistic.js"></script>
                 <div ng-app="app">
                     <div ng-controller="MainCtrl">
+                    
+                    
+                    
+                    <div class="odotable col-xs-6 col-sm-4 col-md-3 col-lg-3">   
+
+                        <div ng-repeat="item in OdoArr | orderBy:item[0]:true">
+                        <b><table width="100%">
+                            <tr class="colordarkred">
+                                <td  width="70%">{{item[0]}}</td>
+                                <td  width="30%" align="right">{{item[2]}}км</td>
+                            </tr>
+                            </table></b>
+
+                            <table width="100%">
+                            <tr ng-repeat="i in item[1] | orderBy:i[0]">
+                                <td width="70%">{{i[0]}}</td>
+                                <td align="right" width="30%">{{i[1]}}км</td>
+                             </tr>
+                            </table>
+                            <br>
+                        </div>
+
+                     </div>
+                     
+                     <div id="odograph" class="highcharts col-xs-6 col-sm-8 col-md-9 col-lg-9">
+  
+                     </div>
                         
-                        {{bububu}}
+                        
+                        
                                             
                     </div>    
                </div>';

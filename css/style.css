@@ -30,12 +30,6 @@ body {
 	color: white;
 }
 
-
-.menuCenter {
-	padding: 3px;
-}
-
-
 .footer {
 	position: fixed;
 	bottom: 0px;
@@ -58,6 +52,20 @@ body {
 	padding-left: 10px;
 	padding-right: 10px;
 	text-align: center;
+}
+
+.colordarkred {
+	color: darkred;
+}
+
+
+.highcharts-background {
+	fill: none;
+}
+
+.odotable {
+	height: 400px;
+	overflow: auto;
 }
 
 

@@ -18,6 +18,7 @@ class Login extends Main { // проверка авторизации по БД.
                     $_SESSION['USER_DATEREG'] = $this->result[0]['date'];
                     $_SESSION['USER_EMAIL'] = $this->result[0]['email'];
                     $_SESSION['USER_RANK'] = $this->result[0]['rank'];
+                    $_SESSION['USER_BYEAR'] = $this->result[0]['year'];
 
 					if (isset($_POST['check'])) {
 						setcookie('c1', static::GenPass(static::PostSecure($_POST['login']), static::PostSecure($_POST['password'])), strtotime('+30 days'), '/');

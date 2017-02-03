@@ -13,7 +13,8 @@ function ShowContent()
         $_SESSION['USER_NAME'] . '<br>' .
         $_SESSION['USER_DATEREG'] . '<br>' .
         $_SESSION['USER_EMAIL'] . '<br>' .
-        $_SESSION['USER_RANK'] . '<br>';
+        $_SESSION['USER_RANK'] . '<br>'.
+        $_SESSION['USER_BYEAR'].'<br>';
 };
 
 include ROOTDIR.'/layers/head.php';

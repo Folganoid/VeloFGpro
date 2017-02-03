@@ -1,8 +1,10 @@
 <?php
+new Reg;
+include ROOTDIR.'/layers/head.php';
+include ROOTDIR.'/layers/footer.php';
 
 function ShowContent() {
 	echo '
-	
 	<h2 align="center">Регистрация</h2>
 		<br>
 			<div align="center">
@@ -27,24 +29,20 @@ function ShowContent() {
 						<tr>
 							<td><input size="20" type="email" placeholder="email" name="email" required></input></td>
 							<td> - введите эл.почту</td>
-						</tr>					
+						</tr>		
+						<tr>
+							<td><input size="4" placeholder="1995" name="year" pattern="[0-9]{4,4}" required></input></td>
+							<td> - введите год рождения</td>
+						</tr>	
 					</table>
 						<br>
 							<input name="enter" type="submit" value="отправить"></input>
 							<input type="reset" value="сбросить"></input>
 							<input name="id_form" type="hidden" value="reg"></input>
-
 				</form>
-			
 			</div>
-
 	';
 };
-
-include ROOTDIR.'/layers/head.php';
-include ROOTDIR.'/layers/footer.php';
-new Reg;
-
 ?>
 
 
