@@ -4,10 +4,85 @@ angular
     .controller('MainCtrl', function($scope){
         $scope.curYear = 2016;
         $scope.yearData = jsonYearData;
-        $scope.statData = jsonYearData;
+        $scope.statData = jsonStatData;
+
+        for ( i=0; i < $scope.statData.length; i++ ) { // объединяет две базы в  общий массив одо
+            var exist = 0;
+            for ( z=0; z < $scope.yearData.length; z++ ) {
+                if(($scope.statData[i][9].slice(0,4) == $scope.yearData[z][0]) && ($scope.statData[i][3] == $scope.yearData[z][1])) {
+                    $scope.yearData[z][2] = +$scope.yearData[z][2] + +$scope.statData[i][1];
+                    exist = 1;
+                }
+            };
+            if (exist == 0) $scope.yearData.push([$scope.statData[i][9].slice(0,4), $scope.statData[i][3], $scope.statData[i][1]]);
+        };
+
 
         $scope.OdoArr = createOdoArr($scope.yearData);
         $scope.highCh = (createHighChartsOdo($scope.OdoArr));
+        $scope.odoTotal = [];
+
+        (function () { // создает одо список по всем годам
+            for (i = 0; i<$scope.highCh[0].length; i++) {
+                var dataArr = $scope.highCh[0][i].data;
+                var result = dataArr.reduce(function(sum, current) {
+                    return +sum + +current;
+                }, 0);
+                $scope.odoTotal.push([$scope.highCh[0][i].name, result]);
+            }
+        })();
+
+        $scope.avgOdo = +$scope.odoTotal[$scope.odoTotal.length-1][1] / +$scope.highCh[1].length;
+
+        Highcharts.chart('odoTot', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'КИЛОМЕТРАЖ'
+            },
+            subtitle: {
+                text: 'ПО КАЖДОМУ ТС'
+            },
+            xAxis: {
+                type: 'category',
+                labels: {
+                    rotation: -45,
+                    style: {
+                        fontSize: '12px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: false
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            tooltip: {
+                pointFormat: 'Общий накат составляет: <b>{point.y:.1f} км</b>'
+            },
+            series: [{
+                name: 'ТС',
+                data: $scope.odoTotal,
+                dataLabels: {
+                    enabled: true,
+                    rotation: -90,
+                    color: '#FFFFFF',
+                    align: 'right',
+                    format: '{point.y:.1f}', // one decimal
+                    y: 10, // 10 pixels down from the top
+                    style: {
+                        fontSize: '12px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            }]
+        });
 
 
         Highcharts.chart('odograph', { // график общего наката
@@ -15,11 +90,11 @@ angular
             //colors: ['darkred', 'darkblue', 'darkgreen', '#800080', '#808000','#008ab2' ,'#b25c00' ],
 
             title: {
-                text: 'ОБЩИЙ НАКАТ',
+                text: 'КИЛОМЕТРАЖ',
                 x: -20 //center
             },
             subtitle: {
-                text: 'накат по годам',
+                text: 'ПО ГОДАМ',
                 x: -20
             },
             xAxis: {
@@ -57,12 +132,12 @@ angular
 
                 for (z=0; z<arr.length; z++) {
                     if(uniq[i] == arr[z][0]) {
-                        Arr2.push([arr[z][1], arr[z][2]]);
+                        Arr2.push([arr[z][1], +arr[z][2]]);
                         total += +arr[z][2];
                     };
                 };
 
-                Arr1.push([uniq[i], Arr2, total]);
+                Arr1.push([uniq[i], Arr2, +total]);
             };
             return Arr1;
         };

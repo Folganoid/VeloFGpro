@@ -64,9 +64,14 @@ body {
 }
 
 .odotable {
-	height: 400px;
+	height: 350px;
 	overflow: auto;
+	padding-right: 5px;
 }
 
-
+.otboynik {
+	height: 2px;
+	margin-top: 5px;
+	background-color: dimgrey;
+}
 

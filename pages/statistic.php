@@ -21,38 +21,42 @@ if(isset($_SESSION['USER_ID'])) {
               <script src="/js/statistic.js"></script>
                 <div ng-app="app">
                     <div ng-controller="MainCtrl">
-                    
-                    
-                    
-                    <div class="odotable col-xs-6 col-sm-4 col-md-3 col-lg-3">   
-
+                    <div class="container">
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <br>
+                    <h4 align="center">КИЛОМЕТРАЖ ПО ТС</h4>
+                        <div class="odotable">
                         <div ng-repeat="item in OdoArr | orderBy:item[0]:true">
                         <b><table width="100%">
                             <tr class="colordarkred">
                                 <td  width="70%">{{item[0]}}</td>
-                                <td  width="30%" align="right">{{item[2]}}км</td>
+                                <td  width="30%" align="right">{{item[2].toFixed(2)}}км</td>
                             </tr>
                             </table></b>
 
                             <table width="100%">
                             <tr ng-repeat="i in item[1] | orderBy:i[0]">
                                 <td width="70%">{{i[0]}}</td>
-                                <td align="right" width="30%">{{i[1]}}км</td>
+                                <td align="right" width="30%">{{i[1].toFixed(2)}}км</td>
                              </tr>
                             </table>
                             <br>
                         </div>
+                     </div>
 
+                     <h4>В среднем за год: {{avgOdo.toFixed(2)}}км</h4>
+                     </div>                     
+                     <div class="odototal col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                        <br>
+                        <div id="odoTot"></div>
+                     </div>
+                         <br><div id="odograph" class="highcharts col-xs-12 col-sm-12 col-md-6 col-lg-6"></div>
+                        </div>
+                     <div class="container">
+                        <h2 align="center">Расширенная статистика на текущий год</h2>
                      </div>
                      
-                     <div id="odograph" class="highcharts col-xs-6 col-sm-8 col-md-9 col-lg-9">
-  
-                     </div>
-                        
-                        
-                        
-                                            
-                    </div>    
+                    </div> 
                </div>';
 
 
