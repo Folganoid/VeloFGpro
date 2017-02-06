@@ -24,17 +24,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">VeloFG</a>
+                <a class="navbar-brand" href="/">VeloFG</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="/">Главная</a></li>
                     <li><a href="/statistic">Статистика</a></li>
                     <li><a href="/chat">Чат</a></li>
                     <li><a href="/map">Карта</a></li>
-                    <li><a href="/items">Инвентарь</a></li>
+                    <li><a href="/data">Данные</a></li>
                 </ul>
                 <form class="navbar-form navbar-right" name="auth" action="index.php" method="post">
                     <div class="form-group">

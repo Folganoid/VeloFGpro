@@ -8,7 +8,7 @@ function ShowContent()
 		
 
 	';
-    echo $_SESSION['USER_ID'] . '<br>' .
+   echo $_SESSION['USER_ID'] . '<br>' .
         $_SESSION['USER_LOGIN'] . '<br>' .
         $_SESSION['USER_NAME'] . '<br>' .
         $_SESSION['USER_DATEREG'] . '<br>' .

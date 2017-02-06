@@ -5,8 +5,11 @@ body {
 
 .navbar {
 
+	position: fixed;
+	width: 100%;
 	font-size: 16px;
 	font-weight: bold;
+	z-index: 10;
 }
 
 .hide {
@@ -64,7 +67,7 @@ body {
 }
 
 .odotable {
-	height: 350px;
+	height: 300px;
 	overflow: auto;
 	padding-right: 5px;
 }

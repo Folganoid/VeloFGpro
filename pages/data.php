@@ -3,7 +3,7 @@
 function ShowContent() {
 	echo '
 	
-	<h2 align="center">Инвентарь</h2>
+	<h2 align="center">Управление данными</h2>
 		
 
 	';
