@@ -29,10 +29,6 @@ body {
 	color: #CEECF5;
 }
 
-.txtWhite {
-	color: white;
-}
-
 .footer {
 	position: fixed;
 	bottom: 0px;
@@ -61,15 +57,37 @@ body {
 	color: darkred;
 }
 
+.colordarkblue {
+	color: darkblue;
+}
+
+.colorpurple {
+	color: rebeccapurple;
+}
+
+.colorblack {
+	color: black;
+}
+
+.colordarkgreen {
+	color: #00665f;
+}
+
+
+.txtWhite {
+	color: white;
+}
+
 
 .highcharts-background {
 	fill: none;
 }
 
 .odotable {
-	height: 300px;
+	height: 280px;
 	overflow: auto;
 	padding-right: 5px;
+	white-space: nowrap;
 }
 
 .otboynik {
@@ -78,3 +96,114 @@ body {
 	background-color: dimgrey;
 }
 
+.monthbar {
+	height: 12px;
+	margin-left: 3px;
+	background: -moz-linear-gradient(top, #61210B, #DF0101);
+	background: -o-linear-gradient(top, #61210B, #DF0101);
+	background: -webkit-linear-gradient(top, #61210B, #DF0101);
+	background: -ms-linear-gradient(top, #61210B, #DF0101);
+}
+
+.monthtable {
+	text-align: right;
+	white-space: nowrap;
+}
+
+.monthtable tr td {
+	padding-right: 3px;
+}
+
+.lasttable {
+	text-align: center;
+	white-space: nowrap;
+}
+
+.lasttable tr td {
+	padding-left: 5px;
+	height: 45px;
+}
+
+.statdisttable {
+	text-align: right;
+	white-space: nowrap;
+}
+
+.totaltable {
+	width: 100%;
+	text-align: center;
+	white-space: nowrap;
+}
+
+.tablehead td {
+	height: 30px;
+	background-color: rgba(100,100,100,0.4);
+	font-weight: bold;
+}
+
+.tehtable {
+	width: 100%;
+	text-align: center;
+	white-space: nowrap;
+}
+
+.tehtable tr td {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.surfbarasf {
+	height: 12px;
+	margin-left: 3px;
+	background: -moz-linear-gradient(top, #1C1C1C, #A4A4A4);
+	background: -o-linear-gradient(top, #1C1C1C, #A4A4A4);
+	background: -webkit-linear-gradient(top, #1C1C1C, #A4A4A4);
+	background: -ms-linear-gradient(top, #1C1C1C, #A4A4A4);
+}
+
+.cellright {
+	text-align: right;
+	padding-right: 5px;
+}
+
+#calendar2 {
+	width: 100%;
+	font: monospace;
+	line-height: 1.5em;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+
+}
+#calendar2 thead tr:last-child {
+	font-size: 16;
+	color: rgb(85, 85, 85);
+
+}
+#calendar2 thead tr:nth-child(1) td:nth-child(2) {
+	color: rgb(50, 50, 50);
+}
+#calendar2 thead tr:nth-child(1) td:nth-child(1):hover, #calendar2 thead tr:nth-child(1) td:nth-child(3):hover {
+	cursor: pointer;
+	border-radius: 15px;
+	background: -webkit-radial-gradient(center, rgba(50,50,50,0.2), rgba(200,200,200,0.1));
+	background: -moz-radial-gradient(center, rgba(50,50,50,0.2), rgba(200,200,200,0.1));
+	background: -o-radial-gradient(center, rgba(50,50,50,0.2), rgba(200,200,200,0.1));
+	background: -ms-radial-gradient(center, rgba(50,50,50,0.2), rgba(200,200,200,0.1));
+	color: white;
+}
+
+#calendar2 tbody td {
+	color: rgb(44, 86, 122);
+}
+#calendar2 tbody td:nth-child(n+6), #calendar2 .holiday {
+	color: darkred;
+}
+#calendar2 tbody td.today {
+	border-radius: 15px;
+	background: -moz-radial-gradient(left, darkred, red);
+	background: -o-radial-gradient(left, darkred, red);
+	background: -webkit-radial-gradient(left, darkred, red);
+	background: -ms-radial-gradient(left, darkred, red);
+	color: #fff;
+}

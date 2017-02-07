@@ -23,8 +23,6 @@ angular
         $scope.highCh = (createHighChartsOdo($scope.OdoArr));
         $scope.odoTotal = [];
 
-        console.log($scope.statData);
-
         highChartOdo($scope.highCh);
 
         (function () { // создает одо список по всем годам
@@ -38,14 +36,59 @@ angular
         })();
 
         $scope.avgOdo = +$scope.odoTotal[$scope.odoTotal.length-1][1] / +$scope.highCh[1].length;
-
         $scope.statEnhanced = getStatByTS($scope.curYear);
-
         $scope.tehArr = getTehArr();
 
-        console.log($scope.tehArr);
-
         highChartOdoTotal($scope.odoTotal);
+        highChartTotalOdo(odoChart($scope.curYear));
+        pulsechart(createChartAvgPls());
+        avgsSpeedChart(createChartAvgSpd());
+
+        $scope.plsZones = (function(){
+            res = (220 - ($scope.curYear - brthYear))/2;
+            mod = res / 5;
+            return [res, mod];
+        })();
+
+        function createChartAvgPls() {
+            var chartArr = [];
+            for ( i = 0; i < $scope.statEnhanced.length-1; i++) {
+                var obj = {name: $scope.statEnhanced[i].namets};
+                var data = [];
+
+                for( z=0;z<$scope.statData.length;z++) {
+                    if(($scope.statData[z][3] == obj.name) && ($scope.statData[z][6] != 0) && ($scope.statData[z][9].substr(0,4) == $scope.curYear)) {
+                        var yr = +$scope.statData[z][9].substr(0,4);
+                        var m = +$scope.statData[z][9].substr(5,2);
+                        var d = +$scope.statData[z][9].substr(8,2);
+                        data.push([Date.UTC(yr, m-1, d), +$scope.statData[z][6]]);
+                    };
+                };
+                obj.data = data;
+                chartArr.push(obj);
+            };
+            return chartArr;
+        };
+
+        function createChartAvgSpd() {
+            var chartArr = [];
+            for ( i = 0; i < $scope.statEnhanced.length-1; i++) {
+                var obj = {name: $scope.statEnhanced[i].namets};
+                var data = [];
+
+                for( z=0;z<$scope.statData.length;z++) {
+                    if(($scope.statData[z][3] == obj.name) && ($scope.statData[z][4] != 0) && ($scope.statData[z][9].substr(0,4) == $scope.curYear)) {
+                        var yr = +$scope.statData[z][9].substr(0,4);
+                        var m = +$scope.statData[z][9].substr(5,2);
+                        var d = +$scope.statData[z][9].substr(8,2);
+                        data.push([Date.UTC(yr, m-1, d), +$scope.statData[z][4]]);
+                    };
+                };
+                obj.data = data;
+                chartArr.push(obj);
+            };
+            return chartArr;
+        };
 
         function createOdoArr(arr) { //создает массив для таблицы наката по годам
             var obj = {};
@@ -167,11 +210,11 @@ angular
                     monthperc: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     surfaceperc: [0, 0, 0, 0],
                     surfacedist: [0, 0, 0, 0],
-                    last: ["", 0, 0, 0, "", "", ""]
+                    last: ["", 0, 0, 0, "", "", "", [], [], []]
                 };
 
                 for (i = 0; i < $scope.statData.length; i++) {
-                    if (($scope.statData[i][9].slice(0, 4) == currentyear) && ($scope.statData[i][3] == ts) || (ts == "ВСЕГО")) {
+                    if (($scope.statData[i][9].slice(0, 4) == currentyear) && (($scope.statData[i][3] == ts) || (ts == "ВСЕГО"))) {
 
                         tmpObj.count++;
                         if (tmpObj.count == 1) {
@@ -241,12 +284,36 @@ angular
                     tmpObj.surfaceperc[i] = tmpObj.surfacedist[i] * 100 / tmpObj.dist;
                 }
 
+                (tmpObj.last[1] > tmpObj.avgdist) ? (tmpObj.last[7] = ['green', '▲']) : (tmpObj.last[1] == tmpObj.avgdist) ? (tmpObj.last[7] = ['#ddb100', '⊗']) : (tmpObj.last[7] = ['red', '▼']);
+                (tmpObj.last[2] > tmpObj.avgspd) ? (tmpObj.last[8] = ['green', '▲']) : (tmpObj.last[2] == tmpObj.avgspd) ? (tmpObj.last[8] = ['#ddb100', '⊗']) : (tmpObj.last[8] = ['red', '▼']);
+                (tmpObj.last[3] > tmpObj.avgpls) ? (tmpObj.last[9] = ['red', '▲']) : (tmpObj.last[3] == tmpObj.avgpls) ? (tmpObj.last[9] = ['#ddb100', '⊗']) : (tmpObj.last[9] = ['green', '▼']);
+
                 return tmpObj;
             };
 
         return tmpArr10;
 
         };
+
+        function odoChart(cyear) {
+            var data = [];
+            var date;
+            for(i=0;i<$scope.statData.length;i++) {
+                if ($scope.statData[i][9] != date) {
+                    var yr = +$scope.statData[i][9].substr(0,4);
+                    if (yr != cyear) continue;
+                    var m = +$scope.statData[i][9].substr(5,2);
+                    var d = +$scope.statData[i][9].substr(8,2);
+                    data.push([Date.UTC(yr, m-1, d), +$scope.statData[i][1]]);
+                    date = $scope.statData[i][9];
+                }
+                else {
+                    data[data.length-1][1] += +$scope.statData[i][1];
+                }
+            };
+            return data;
+        };
+
     });
 
 /////////////////////////
@@ -293,6 +360,152 @@ function highChartOdo(arr) { // график наката по годам
             valueSuffix: ' км'
         },
         series: arr[0]
+    });
+};
+
+function highChartTotalOdo(arr) {
+
+    Highcharts.setOptions({
+        colors: ['darkred']
+    });
+
+    $('#distgraph').highcharts({
+        chart: {
+            type: 'spline'
+        },
+        title: {
+            text: 'ОБЩИЙ НАКАТ'
+        },
+        subtitle: {
+            text: 'Годовая диаграмма (Дистанция / Дата)'
+        },
+        xAxis: {
+            type: 'datetime',
+            dateTimeLabelFormats: { // don't display the dummy year
+                month: '%e. %b',
+                year: '%b'
+            },
+            title: {
+                text: 'Дата'
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Километры'
+            },
+            min: 0
+        },
+        tooltip: {
+            headerFormat: '<b>{series.name}</b><br>',
+            pointFormat: '{point.x:%e. %b}: {point.y:.2f} км'
+        },
+
+        plotOptions: {
+            spline: {
+                marker: {
+                    enabled: true
+                }
+            }
+        },
+
+        series: [{
+            name: 'Расстояние',
+            // Define the data points. All series have a dummy year
+            // of 1970/71 in order to be compared on the same x axis. Note
+            // that in JavaScript, months start at 0 for January, 1 for February etc.
+            data: arr
+        }]
+    });
+};
+
+function pulsechart(arr) {
+    $('#plschart').highcharts({
+        colors: ['darkred', 'darkblue', 'darkgreen', '#4C0B5F', '#2E2E2E', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
+        chart: {
+            type: 'spline'
+        },
+        title: {
+            text: 'СРЕДНИЙ ПУЛЬС'
+        },
+        subtitle: {
+            text: 'Годовая диаграмма (Средний пульс / Дата)'
+        },
+        xAxis: {
+            type: 'datetime',
+            dateTimeLabelFormats: { // don't display the dummy year
+                month: '%e. %b',
+                year: '%b'
+            },
+            title: {
+                text: 'Дата'
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Ударов в минуту'
+            },
+            min: 100
+        },
+        tooltip: {
+            headerFormat: '<b>{series.name}</b><br>',
+            pointFormat: '{point.x:%e. %b}: {point.y:.2f} уд/мин'
+        },
+
+        plotOptions: {
+            spline: {
+                marker: {
+                    enabled: true
+                }
+            }
+        },
+
+        series: arr
+    });
+};
+
+
+function avgsSpeedChart(arr) {
+    $('#avgspdchart').highcharts({
+        colors: ['darkred', 'darkblue', 'darkgreen', 'BlueViolet ', 'Chocolate', 'DarkSlateGrey', 'Red ', 'DimGrey', 'Blue', 'Green'],
+        chart: {
+            type: 'spline'
+        },
+        title: {
+            text: 'СРЕДНЯЯ СКОРОСТЬ'
+        },
+        subtitle: {
+            text: 'Годовая диаграмма (Средняя скорость / Дата)'
+        },
+        xAxis: {
+            type: 'datetime',
+            dateTimeLabelFormats: { // don't display the dummy year
+                month: '%e. %b',
+                year: '%b'
+            },
+            title: {
+                text: 'Дата'
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Скорость (км/ч)'
+            },
+            min: 10
+        },
+        tooltip: {
+            headerFormat: '<b>{series.name}</b><br>',
+            pointFormat: '{point.x:%e. %b}: {point.y:.2f} км/ч'
+        },
+
+        plotOptions: {
+            spline: {
+                marker: {
+                    enabled: true
+                }
+            }
+        },
+
+        series: arr
     });
 };
 

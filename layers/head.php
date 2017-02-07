@@ -49,7 +49,7 @@
     </nav>
 
             <?php MessageShow::get(); ?>
-
-	<div class="container">		
+	<div class="container">
+        <h2>&nbsp;</h2>
 			<?php ShowContent(); ?>
 	</div>
