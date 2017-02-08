@@ -1,3 +1,7 @@
+[ng\:cloak], [ng-cloak], .ng-cloak {
+    display: none;
+}
+
 body {
 	background-image: url("../img/bc.png");
 	background-repeat: repeat;
@@ -114,14 +118,8 @@ body {
 	padding-right: 3px;
 }
 
-.lasttable {
-	text-align: center;
-	white-space: nowrap;
-}
-
 .lasttable tr td {
 	padding-left: 5px;
-	height: 45px;
 }
 
 .statdisttable {
@@ -132,19 +130,18 @@ body {
 .totaltable {
 	width: 100%;
 	text-align: center;
-	white-space: nowrap;
 }
 
 .tablehead td {
 	height: 30px;
 	background-color: rgba(100,100,100,0.4);
 	font-weight: bold;
+	color: black;
 }
 
 .tehtable {
 	width: 100%;
 	text-align: center;
-	white-space: nowrap;
 }
 
 .tehtable tr td {
@@ -206,4 +203,12 @@ body {
 	background: -webkit-radial-gradient(left, darkred, red);
 	background: -ms-radial-gradient(left, darkred, red);
 	color: #fff;
+}
+
+.butY {
+	cursor: pointer;
+}
+.butY:hover {
+	color: rgb(240,240,240);
+	text-shadow: 0 0 0.2em #87F, 0 0 0.2em #87F, 0 0 0.2em #87F;
 }

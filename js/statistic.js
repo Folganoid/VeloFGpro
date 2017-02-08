@@ -2,7 +2,7 @@ angular
     .module('app',[])
 
     .controller('MainCtrl', function($scope){
-        $scope.curYear = 2016;
+        $scope.curYear = new Date().getFullYear();
         $scope.yearData = jsonYearData;
         $scope.statData = jsonStatData;
 
@@ -36,19 +36,39 @@ angular
         })();
 
         $scope.avgOdo = +$scope.odoTotal[$scope.odoTotal.length-1][1] / +$scope.highCh[1].length;
-        $scope.statEnhanced = getStatByTS($scope.curYear);
         $scope.tehArr = getTehArr();
+        $scope.statEnhanced = getStatByTS($scope.curYear);
+
 
         highChartOdoTotal($scope.odoTotal);
         highChartTotalOdo(odoChart($scope.curYear));
         pulsechart(createChartAvgPls());
         avgsSpeedChart(createChartAvgSpd());
 
-        $scope.plsZones = (function(){
+        $scope.plsZones = pulseZ();
+        tehCorr();
+
+        $scope.$watch("curYear", function () {
+            $scope.statEnhanced = getStatByTS($scope.curYear);
+            highChartTotalOdo(odoChart($scope.curYear));
+            pulsechart(createChartAvgPls());
+            avgsSpeedChart(createChartAvgSpd());
+            $scope.plsZones = pulseZ();
+            tehCorr();
+        });
+
+        $scope.validYear = function(year){
+            for (i=0; i<$scope.statData.length; i++) {
+                if ($scope.statData[i][9].slice(0,4) == year) return true;
+            }
+            return false;
+        };
+
+        function pulseZ(){
             res = (220 - ($scope.curYear - brthYear))/2;
             mod = res / 5;
             return [res, mod];
-        })();
+        };
 
         function createChartAvgPls() {
             var chartArr = [];
@@ -204,7 +224,7 @@ angular
                     maxpls: [0, '', '', '#', ''],
                     maxavgspd: [0, '', '', '#', ''],
                     avgpls: [0, 0],
-                    tehnote: ["", 0, ""],
+                    tehnote: ["", 0, "", ""],
                     monthcount: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     monthdist: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     monthperc: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -227,11 +247,6 @@ angular
                             tmpObj.last[6] = $scope.statData[i][16];
                         }
 
-                        if (($scope.statData[i][15] != "") && (ts != 'ВСЕГО')) {
-                            tmpObj.tehnote[0] = $scope.statData[i][15];
-                            tmpObj.tehnote[1] = tmpObj.dist;
-                            tmpObj.tehnote[2] = $scope.statData[i][9];
-                        }
                         tmpObj.dist += +$scope.statData[i][1];
                         tmpObj.time += timeInSec($scope.statData[i][2]);
                         if (tmpObj.maxspd[0] < +$scope.statData[i][5]){
@@ -284,15 +299,27 @@ angular
                     tmpObj.surfaceperc[i] = tmpObj.surfacedist[i] * 100 / tmpObj.dist;
                 }
 
-                (tmpObj.last[1] > tmpObj.avgdist) ? (tmpObj.last[7] = ['green', '▲']) : (tmpObj.last[1] == tmpObj.avgdist) ? (tmpObj.last[7] = ['#ddb100', '⊗']) : (tmpObj.last[7] = ['red', '▼']);
-                (tmpObj.last[2] > tmpObj.avgspd) ? (tmpObj.last[8] = ['green', '▲']) : (tmpObj.last[2] == tmpObj.avgspd) ? (tmpObj.last[8] = ['#ddb100', '⊗']) : (tmpObj.last[8] = ['red', '▼']);
-                (tmpObj.last[3] > tmpObj.avgpls) ? (tmpObj.last[9] = ['red', '▲']) : (tmpObj.last[3] == tmpObj.avgpls) ? (tmpObj.last[9] = ['#ddb100', '⊗']) : (tmpObj.last[9] = ['green', '▼']);
+                (tmpObj.last[1] > tmpObj.avgdist) ? (tmpObj.last[7] = ['green', '▲']) : (tmpObj.last[1] == tmpObj.avgdist) ? (tmpObj.last[7] = ['#cc7a00', '⊗']) : (tmpObj.last[7] = ['red', '▼']);
+                (tmpObj.last[2] > tmpObj.avgspd) ? (tmpObj.last[8] = ['green', '▲']) : (tmpObj.last[2] == tmpObj.avgspd) ? (tmpObj.last[8] = ['#cc7a00', '⊗']) : (tmpObj.last[8] = ['red', '▼']);
+                (tmpObj.last[3] > tmpObj.avgpls) ? (tmpObj.last[9] = ['red', '▲']) : (tmpObj.last[3] == tmpObj.avgpls) ? (tmpObj.last[9] = ['#cc7a00', '⊗']) : (tmpObj.last[9] = ['green', '▼']);
 
                 return tmpObj;
             };
-
         return tmpArr10;
+        };
 
+        function tehCorr() {
+            var cnt = 0;
+        for (i = 0; i < $scope.statEnhanced.length-1; i++) {
+            for (z=0; z<$scope.tehArr.length; z++) {
+                if ($scope.statEnhanced[i].namets == $scope.tehArr[z][2]) {
+                    $scope.statEnhanced[i].tehnote = [$scope.tehArr[z][1], $scope.tehArr[z][3], $scope.tehArr[z][0], $scope.tehArr[z][2]];
+                    cnt++;
+                    if(cnt == 1) $scope.statEnhanced[$scope.statEnhanced.length-1].tehnote = [$scope.tehArr[z][1], $scope.tehArr[z][3], $scope.tehArr[z][0], $scope.tehArr[z][2]];
+                    break;
+                }
+            }
+        };
         };
 
         function odoChart(cyear) {

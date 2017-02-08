@@ -20,8 +20,9 @@ if(isset($_SESSION['USER_ID'])) {
         echo '
               <script src="/js/statistic.js"></script>
               <script src="/js/calendar.js"></script>
+              <script src="/js/statfuncs.js"></script>
                 <div ng-app="app">
-                    <div ng-controller="MainCtrl">
+                    <div ng-cloak ng-controller="MainCtrl">
                     <div class="container">
                     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                     <h5>&nbsp;</h5>
@@ -58,7 +59,7 @@ if(isset($_SESSION['USER_ID'])) {
                         </div>
 
                        <div class="container">
-                            <h2 align="center">Расширенная статистика на {{curYear}} год</h2>
+                            <h2 align="center">Расширенная статистика на <span class="butY" ng-click="(validYear(curYear-1)) ? curYear = curYear - 1 : curYear"><</span><b class="colordarkblue"> {{curYear}} </b><span class="butY" ng-click="(validYear(curYear+1)) ? curYear = curYear + 1 : curYear">></span> год</h2>
 
 
                     <div class="row" ng-repeat="cell in statEnhanced">
@@ -94,16 +95,17 @@ if(isset($_SESSION['USER_ID'])) {
                             <tr title="{{cell.maxspd[1]}} - {{cell.maxspd[2]}}, {{cell.maxspd[4]}}"><td align="left">Максимальная скорость</td><td><b class="colordarkred">{{cell.maxspd[0].toFixed(2)}}км/ч</b></td></tr>
                         </table>
                         <br>
-                            <table class="statdisttable" width="100%">
+                            <table class="statdisttable" width="100%" title="{{cell.tehnote[3]}}">
                             <tr><td align="left"><b>Последнее ТО - <span class="colordarkblue">{{cell.tehnote[2]}}</span></b></td><td><b class="colordarkred">{{cell.tehnote[1]}}км</b></td></tr>
                             </table>
+                            <dd><b>{{(cell.tehnote[3] != cell.namets) ? cell.tehnote[3] :""}}</b></dd>
                             <p align="justify">{{cell.tehnote[0]}}</p>
                             
                         </div>  
                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                         <h7>&nbsp;</h7>
                         <table width="100%" class="monthtable">
-                                <tr ><td width="20%" align="left">Январь</td><td width="10%"><b class="colorblack">{{cell.monthcount[0]}}</b></td><td width="20%" class="colordarkred"><b>{{cell.monthdist[0].toFixed(2)}}км</b></td><td width="50%"><div class="monthbar" style="width: {{cell.monthperc[0]}}%;"></div</td></tr>
+                                <tr ><td width="15%" align="left">Январь</td><td width="10%"><b class="colorblack">{{cell.monthcount[0]}}</b></td><td width="20%" class="colordarkred"><b>{{cell.monthdist[0].toFixed(2)}}км</b></td><td width="55%"><div class="monthbar" style="width: {{cell.monthperc[0]}}%;"></div</td></tr>
                                 <tr><td align="left">Февраль</td><td><b class="colorblack">{{cell.monthcount[1]}}</b></td><td class="colordarkred"><b>{{cell.monthdist[1].toFixed(2)}}км</b></td><td><div class="monthbar" style="width: {{cell.monthperc[1]}}%;"></div</td></tr>
                                 <tr><td align="left">Март</td><td><b class="colorblack">{{cell.monthcount[2]}}</b></td><td class="colordarkred"><b>{{cell.monthdist[2].toFixed(2)}}км</b></td><td><div class="monthbar" style="width: {{cell.monthperc[2]}}%;"></div</td></tr>
                                 <tr><td align="left">Апрель</td><td><b class="colorblack">{{cell.monthcount[3]}}</b></td><td class="colordarkred"><b>{{cell.monthdist[3].toFixed(2)}}км</b></td><td><div class="monthbar" style="width: {{cell.monthperc[3]}}%;"></div</td></tr>
@@ -118,13 +120,15 @@ if(isset($_SESSION['USER_ID'])) {
                         </table>
                         </div>
                         <h7>&nbsp;</h7>
-                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
-                            <h4 align="center" title="{{cell.last[4]}} - {{cell.last[5]}}">Последний выезд:<br><span class="colordarkblue">{{cell.last[0]}}</span></h4>
-                            <table class="lasttable" width="100%">
-                            <tr><td align="left" width="55%">Дистанция</td><td style="color: {{cell.last[7][0]}};" width="5%">{{cell.last[7][1]}}</td><td width="40%"><b class="colordarkred">{{cell.last[1]}}км</b></td></tr>
-                            <tr><td align="left">Средняя скорость</td><td style="color: {{cell.last[8][0]}};">{{cell.last[8][1]}}</td><td><b class="colordarkred">{{cell.last[2]}}<br>км/ч</b></td></tr>
-                            <tr><td align="left">Средний пульс</td><td style="color: {{cell.last[9][0]}};">{{(cell.last[3] > 0) ? cell.last[9][1] : ""}}</td><td><b class="colorpurple">{{(cell.last[3] > 0) ? cell.last[3] : "-"}}<br>{{(cell.last[3] > 0) ? "уд/мин" : ""}}</b></td></tr>
-                            <tr><td align="left">Забортная температура</td><td></td><td><b>{{cell.last[6]}}°С</b></td></tr>
+                        <div align="center" class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                            <h4 class="colorblack" title="{{cell.last[4]}} - {{cell.last[5]}}">Последний выезд
+                            <dd>{{(cell.last[5] != cell.namets) ? cell.last[5] : ""}}</dd>
+                            <dd><span class="colordarkblue">{{cell.last[0]}}</span></dd></h4>
+                            <table class="lasttable">
+                            <tr title="Пройденная дистанция"><td><span class="colorblack glyphicon glyphicon-road"></span></td><td style="color: {{cell.last[7][0]}};">{{cell.last[7][1]}}</td><td><b class="colordarkred">{{cell.last[1]}}км</b></td></tr>
+                            <tr title="Средняя скорость"><td align="left"><span class="colorblack glyphicon glyphicon-dashboard"></span></td><td style="color: {{cell.last[8][0]}};">{{cell.last[8][1]}}</td><td><b class="colordarkred">{{cell.last[2]}}км/ч</b></td></tr>
+                            <tr title="Средний пульс"><td align="left"><span class="colorblack glyphicon glyphicon-heart"></span></td><td style="color: {{cell.last[9][0]}};">{{(cell.last[3] > 0) ? cell.last[9][1] : ""}}</td><td><b class="colorpurple">{{(cell.last[3] > 0) ? cell.last[3] : "-"}}{{(cell.last[3] > 0) ? "уд/мин" : ""}}</b></td></tr>
+                            <tr title="Забортная температура"><td align="left"><span class="colorblack glyphicon glyphicon-asterisk"></span></td><td></td><td><b>{{cell.last[6]}}°С</b></td></tr>
                             </table>
                         </div>
                                
@@ -146,7 +150,7 @@ if(isset($_SESSION['USER_ID'])) {
                         </table>
                         <b><h4 align="center" class="colorpurple">ПУЛЬСОВЫЕ ЗОНЫ</h4></b>
                 <table class="statdisttable" width="100%">
-                    <tr style="color: #220A29;"><td align="left"><b>5я зона: </b></td><td>{{(plsZones[0]+5*plsZones[1]).toFixed(0)}} - {{(plsZones[0]+4*plsZones[1]).toFixed(0)}}</td><td>уд/мин</td><td align="right">Максимальная нагрузка</td></tr>
+                    <tr style="color: #220A29;"><td align="left"><b>5я зона: </b></td><td><span title="Максимально допустимый пульс" style="color: red;">{{(plsZones[0]+5*plsZones[1]).toFixed(0)}}</span> - {{(plsZones[0]+4*plsZones[1]).toFixed(0)}}</td><td>уд/мин</td><td align="right">Максимальная нагрузка</td></tr>
                     <tr style="color: #2F0B3A;"><td align="left"><b>4я зона: </b></td><td>{{(plsZones[0]+4*plsZones[1]).toFixed(0)}} - {{(plsZones[0]+3*plsZones[1]).toFixed(0)}}</td><td>уд/мин</td><td align="right">Анаэробная нагрузка</td></tr>
                     <tr style="color: #4C0B5F;"><td align="left"><b>3я зона: </b></td><td>{{(plsZones[0]+3*plsZones[1]).toFixed(0)}} - {{(plsZones[0]+2*plsZones[1]).toFixed(0)}}</td><td>уд/мин</td><td align="right">Аэробная нагрузка</td></tr>
                     <tr style="color: #6A0888;"><td align="left"><b>2я зона: </b></td><td>{{(plsZones[0]+2*plsZones[1]).toFixed(0)}} - {{(plsZones[0]+1*plsZones[1]).toFixed(0)}}</td><td>уд/мин</td><td align="right">Легкая нагрузка</td></tr>
@@ -178,7 +182,7 @@ if(isset($_SESSION['USER_ID'])) {
                                     <td width="8%" class="colordarkred cellright"><b>{{cell[1]}}км</b></td>
                                     <td width="7%"  class="cellright">{{cell[16]}}°С</td>
                                     <td width="8%"><a href="/statistic/{{cell[0]}}">Показать</a></td>
-                                    <td width="2%" title="{{cell[15]}}"><b style="color: red;">{{(cell[15] != "") ? "!" : ""}}</b></td>
+                                    <td width="2%" title="{{cell[15]}}"><b style="color: red;">{{(cell[15] != "") ? "🛠" : ""}}</b></td>
                                 </tr>
                             </table>                        
                         </div>
