@@ -21,8 +21,8 @@ class Login extends Main { // проверка авторизации по БД.
                     $_SESSION['USER_BYEAR'] = $this->result[0]['year'];
 
 					if (isset($_POST['check'])) {
-						setcookie('c1', static::GenPass(static::PostSecure($_POST['login']), static::PostSecure($_POST['password'])), strtotime('+30 days'), '/');
-						setcookie('c2', static::PostSecure($_POST['login']), strtotime('+30 days'), '/');
+						setcookie('c1', static::GenPass(static::PostSecure($_POST['login']), static::PostSecure($_POST['password'])), strtotime('+30 days'), "/");
+						setcookie('c2', static::PostSecure($_POST['login']), strtotime('+30 days'), "/");
                         MessageShow::set('Вы вошли как '.$_SESSION['USER_LOGIN'], 3);
 					};
 					unset($this->result); // обнуляем
@@ -40,8 +40,8 @@ class Login extends Main { // проверка авторизации по БД.
             };
 		}
 		else if(isset($_POST['exit']) && ($_POST['id_form'] == "auth")) {
-			setcookie('c1', "", time() - 3600);
-			setcookie('c2', "", time() - 3600);
+			setcookie('c1', "", time() - 3600, "/");
+			setcookie('c2', "", time() - 3600, "/");
 			$_SESSION = array();
 		}
 	}

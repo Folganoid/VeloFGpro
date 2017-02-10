@@ -49,6 +49,8 @@ body {
 	color: white;
 	position: fixed;
 	top: 50px;
+	left: 0px;
+	z-index: 100;
 }
 
 .stattable tr td{
@@ -66,7 +68,7 @@ body {
 }
 
 .colorpurple {
-	color: rebeccapurple;
+	color: #4C0B5F;
 }
 
 .colorblack {
@@ -125,6 +127,11 @@ body {
 .statdisttable {
 	text-align: right;
 	white-space: nowrap;
+}
+
+.trimtable {
+	max-height: 440px;
+	overflow: auto;
 }
 
 .totaltable {
@@ -207,6 +214,7 @@ body {
 
 .butY {
 	cursor: pointer;
+
 }
 .butY:hover {
 	color: rgb(240,240,240);

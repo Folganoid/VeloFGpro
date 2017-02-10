@@ -1,7 +1,8 @@
 <?php
 
+if(isset(Route::$url_parts[1])) {
 
-if(isset($_SESSION['USER_ID'])) {
+//    echo Route::$url_parts[1];
 
     function ShowContent()
     {
@@ -10,12 +11,21 @@ if(isset($_SESSION['USER_ID'])) {
             <script src="/js/highcharts.js"></script>
             <script src="/js/exporting.js"></script>
 
-			<h2 align="center">Статистика ' . $_SESSION['USER_NAME'] . '</h2>
+			<h2 align="center">Статистика ' . Route::$url_parts[1] . '</h2>
 			';
+        $statID = new Stat();
+        $statID->db('SELECT id, year FROM users WHERE login = "'.Route::$url_parts[1].'";');
+
+        if (!isset($statID->result[0])) {
+            MessageShow::set('Пользователь не найден', 1);
+            MessageShow::get();
+            exit();
+        }
+
         $statOdo = new Stat();
-        $statOdo->db('SELECT * FROM statdata WHERE userid = ' . $_SESSION['USER_ID'] . ' ORDER BY date DESC');
+        $statOdo->db('SELECT * FROM statdata WHERE userid = ' . $statID->result[0][0] . ' ORDER BY date DESC');
         $statYear = new Stat();
-        $statYear->db('SELECT year, bike, dist FROM yeardata WHERE userid = ' . $_SESSION['USER_ID'].' ORDER BY year DESC');
+        $statYear->db('SELECT year, bike, dist FROM yeardata WHERE userid = ' . $statID->result[0][0] .' ORDER BY year DESC');
 
         echo '
               <script src="/js/statistic.js"></script>
@@ -59,7 +69,7 @@ if(isset($_SESSION['USER_ID'])) {
                         </div>
 
                        <div class="container">
-                            <h2 align="center">Расширенная статистика на <span class="butY" ng-click="(validYear(curYear-1)) ? curYear = curYear - 1 : curYear"><</span><b class="colordarkblue"> {{curYear}} </b><span class="butY" ng-click="(validYear(curYear+1)) ? curYear = curYear + 1 : curYear">></span> год</h2>
+                            <h2 align="center">Расширенная статистика на <span class="colordarkblue butY" ng-click="validYear(0)">◄</span><b class="colordarkblue"> {{curYear}} </b><span class="colordarkblue butY" ng-click="validYear(1)">►</span> год</h2>
 
 
                     <div class="row" ng-repeat="cell in statEnhanced">
@@ -150,7 +160,7 @@ if(isset($_SESSION['USER_ID'])) {
                         </table>
                         <b><h4 align="center" class="colorpurple">ПУЛЬСОВЫЕ ЗОНЫ</h4></b>
                 <table class="statdisttable" width="100%">
-                    <tr style="color: #220A29;"><td align="left"><b>5я зона: </b></td><td><span title="Максимально допустимый пульс" style="color: red;">{{(plsZones[0]+5*plsZones[1]).toFixed(0)}}</span> - {{(plsZones[0]+4*plsZones[1]).toFixed(0)}}</td><td>уд/мин</td><td align="right">Максимальная нагрузка</td></tr>
+                    <tr style="color: #220A29;"><td align="left"><b>5я зона: </b></td><td><span title="Максимально допустимый пульс" style="color: red;"><b>{{(plsZones[0]+5*plsZones[1]).toFixed(0)}}</b></span> - {{(plsZones[0]+4*plsZones[1]).toFixed(0)}}</td><td>уд/мин</td><td align="right">Максимальная нагрузка</td></tr>
                     <tr style="color: #2F0B3A;"><td align="left"><b>4я зона: </b></td><td>{{(plsZones[0]+4*plsZones[1]).toFixed(0)}} - {{(plsZones[0]+3*plsZones[1]).toFixed(0)}}</td><td>уд/мин</td><td align="right">Анаэробная нагрузка</td></tr>
                     <tr style="color: #4C0B5F;"><td align="left"><b>3я зона: </b></td><td>{{(plsZones[0]+3*plsZones[1]).toFixed(0)}} - {{(plsZones[0]+2*plsZones[1]).toFixed(0)}}</td><td>уд/мин</td><td align="right">Аэробная нагрузка</td></tr>
                     <tr style="color: #6A0888;"><td align="left"><b>2я зона: </b></td><td>{{(plsZones[0]+2*plsZones[1]).toFixed(0)}} - {{(plsZones[0]+1*plsZones[1]).toFixed(0)}}</td><td>уд/мин</td><td align="right">Легкая нагрузка</td></tr>
@@ -172,9 +182,13 @@ if(isset($_SESSION['USER_ID'])) {
                     <div class="container">
                         <h7>&nbsp;</h7>
                         <h2 align="center">Таблица данных</h2>
+                            <div align="left">
+                            <input ng-model="$ctrl.query" placeholder="Фильтр"></input>
+                            </div>   
+                            <div class="trimtable">
                             <table class="totaltable" border="1">
                             <tr class="tablehead"><td>Дата</td><td>ТС</td><td>Описание</td><td>Время</td><td>Дистанция</td><td>Темп.</td><td>Ссылка</td><td>ТО</td></tr>
-                                <tr ng-repeat="cell in statData">
+                                <tr ng-repeat="cell in statData | filter:$ctrl.query">
                                     <td width="10%" class="colordarkblue"><b>{{cell[9]}}</b></td>
                                     <td  width="15%">{{cell[3]}}</td>
                                     <td width="40%">{{cell[14]}}</td>
@@ -184,21 +198,25 @@ if(isset($_SESSION['USER_ID'])) {
                                     <td width="8%"><a href="/statistic/{{cell[0]}}">Показать</a></td>
                                     <td width="2%" title="{{cell[15]}}"><b style="color: red;">{{(cell[15] != "") ? "🛠" : ""}}</b></td>
                                 </tr>
-                            </table>                        
+                            </table>
+                            </div>
                         </div>
                         
                         <div class="container">
                         <h7>&nbsp;</h7>
                         <h2 align="center">Технический дневник</h2>
+                            <div align="left"><input ng-model="$ctrl.query2" placeholder="Фильтр"></input></div>
+                            <div class="trimtable">
                             <table class="tehtable" border="1">
                             <tr class="tablehead"><td>Дата</td><td>ТС</td><td>Описание</td><td>Дистанция</td></tr>
-                                <tr ng-repeat="cell in tehArr">
+                                <tr ng-repeat="cell in tehArr | filter:$ctrl.query2">
                                     <td width="10%"><b class="colordarkblue">{{cell[0]}}</b></td>
                                     <td width="15%">{{cell[2]}}</td>
                                     <td width="67%" align="justify">{{cell[1]}}</td>
                                     <td width="8%" class="cellright colordarkred"><b>{{cell[3].toFixed(2)}}км</b></td>
                                 </tr>
-                            </table>                        
+                            </table>               
+                            </div>
                         </div>
                     
                     
@@ -212,7 +230,7 @@ if(isset($_SESSION['USER_ID'])) {
         <script>
             var jsonStatData = JSON.parse('<?php echo GetJSONfromArray::ArrToJson($statOdo->result); ?>');
             var jsonYearData = JSON.parse('<?php echo GetJSONfromArray::ArrToJson($statYear->result); ?>');
-            var brthYear = '<?php echo $_SESSION['USER_BYEAR']; ?>';
+            var brthYear = '<?php echo $statID->result[0][1]; ?>';
         </script>
 
 <?php
@@ -220,9 +238,19 @@ if(isset($_SESSION['USER_ID'])) {
     };
 }
 else {
-		MessageShow::set('Статистику может видеть только зарегестрированный пользователь', 1);
+		MessageShow::set('У вас нет своей статистики. Гость может просмотреть статистику зарегестрированных пользователей', 1);
     	function ShowContent() {
-            echo '<h2 align="center">Статистика</h2> ';
+            echo '<h2 align="center">Статистика</h2> 
+                <div align="center"><b>Введите логин пользователя: </b><input id="enteruserstat" size="8" placeholder="login"></input>
+                <button id="butuserstat"> Просмотреть </button>
+                </div>
+                <script>$(\'#butuserstat\').click(function(){
+                   document.location.href = "/statistic/" + $(\'#enteruserstat\').val();
+                });</script>
+
+            
+            
+            ';
 		}
 };
 

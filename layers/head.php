@@ -30,12 +30,12 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="/statistic">Статистика</a></li>
+                    <li><a href="<?php if (isset($_SESSION['USER_LOGIN'])) echo '/statistic'.'/'.$_SESSION['USER_LOGIN']; else echo '/statistic' ?>">Статистика</a></li>
                     <li><a href="/chat">Чат</a></li>
                     <li><a href="/map">Карта</a></li>
                     <li><a href="/data">Данные</a></li>
                 </ul>
-                <form class="navbar-form navbar-right" name="auth" action="index.php" method="post">
+                <form class="navbar-form navbar-right" name="auth" action="" method="post">
                     <div class="form-group">
                         <span class="txtWhite">Вы вошли как </span>
                         <span class="txtWhite" id="lineUpLog"><?php echo Login::LoginShow(); ?></span>

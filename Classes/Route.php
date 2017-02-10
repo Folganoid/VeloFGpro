@@ -2,7 +2,7 @@
 
 class Route { // Роутинг.
 
-    public $url_parts;
+    public static $url_parts;
 
 	public function Correct_path($path){ // проверка строки запроса.
     	if(!preg_match("/^([0-9a-zA-Z\/][0-9a-zA-Z\_\/\-\\\]*)$/i",$path)) return false;
@@ -12,7 +12,7 @@ class Route { // Роутинг.
 	public function __construct() {
 		$url = $_SERVER['REQUEST_URI'];
 
-			if ($_SERVER['REQUEST_URI'] == "/"  or $_SERVER['REQUEST_URI'] == '/index.php') $page = 'home';
+			if ($_SERVER['REQUEST_URI'] == "/") $page = 'home';
 			else {
 				$page = substr($_SERVER['REQUEST_URI'], 1);
 
@@ -20,12 +20,13 @@ class Route { // Роутинг.
                         MessageShow::set('Неправильная ссылка', 1);
 					}
 
-				$this->url_parts = explode("/", $page);
+				self::$url_parts = explode("/", $page);
 
 			};
 
-        if (file_exists(ROOTDIR.'/pages/'.$page.'.php')) {
-            include ROOTDIR.'/pages/'.$page.'.php';
+        if (file_exists(ROOTDIR.'/pages/'.$page.'.php')) include ROOTDIR.'/pages/'.$page.'.php';
+        else if (file_exists(ROOTDIR.'/pages/'. self::$url_parts[0].'.php')) {
+            include ROOTDIR.'/pages/'.self::$url_parts[0].'.php';
         }
         else {
             MessageShow::set('Ссылка не существует!', 1);
