@@ -22,7 +22,11 @@ public function __construct() {
                     MessageShow::get();
                 }
 				else if ($pass1 != $pass2) {
-				    MessageShow::set('Пароли не совпадают', 2);
+				    MessageShow::set('Пароли не совпадают', 1);
+                    MessageShow::get();
+                }
+                else if(($yr < 1900) OR ($yr > date("Y"))) {
+                    MessageShow::set('Некорректный год рождения', 1);
                     MessageShow::get();
                 }
 				else {
@@ -30,9 +34,9 @@ public function __construct() {
 			$this->db("INSERT INTO `users` (`id`, `login`, `name`, `pass`, `date`, `email`, `rank`, `year`) VALUES (NULL, '".$lg."', '".$nm."', '".$pass1."', NOW(), '".$eml."', 0, ".$yr.");");
 
                 MessageShow::set('Регистрация прошла успешно.', 3);
-                setcookie('c1', $pass1, strtotime('+30 days'), '/');
-				setcookie('c2', $lg, strtotime('+30 days'), '/');
-                exit(header('Location: /'));
+                setcookie('c1', $pass1, strtotime('+30 days'), "/");
+				setcookie('c2', $lg, strtotime('+30 days'), "/");
+                exit(header("Location: /"));
 		        };
 	};
 }

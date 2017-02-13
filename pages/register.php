@@ -32,7 +32,7 @@ function ShowContent() {
 						</tr>		
 						<tr>
 							<td><input size="4" placeholder="1995" name="year" pattern="[0-9]{4,4}" required></input></td>
-							<td> - введите год рождения</td>
+							<td> - введите год рождения (для расчета ЧСС)</td>
 						</tr>	
 					</table>
 						<br>

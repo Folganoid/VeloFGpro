@@ -12,6 +12,13 @@ if(isset(Route::$url_parts[1])) {
             <script src="/js/exporting.js"></script>
 
 			<h2 align="center">Статистика ' . Route::$url_parts[1] . '</h2>
+			<div class="littlestat"><b>Посмотреть чужую статистику: </b>
+			<input id="enteruserstat" size="8" placeholder="login"></input>
+            <button id="butuserstat"> Перейти </button>
+            </div>
+            <script>$(\'#butuserstat\').click(function(){
+              document.location.href = "/statistic/" + $(\'#enteruserstat\').val();
+            });</script>
 			';
         $statID = new Stat();
         $statID->db('SELECT id, year FROM users WHERE login = "'.Route::$url_parts[1].'";');
@@ -79,7 +86,7 @@ if(isset(Route::$url_parts[1])) {
                         <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                         <h7>&nbsp;</h7>
                         <table class="statdisttable" width="100%">
-                            <tr><td width="60%" align="left">Пройденная дистанция</td><td width="40%"><b class="colordarkred">{{cell.dist.toFixed(2)}}км</b></td></tr>
+                            <tr><td width="60%" align="left" class="colordarkred"><b>Пройденная дистанция</b></td><td width="40%"><b class="colordarkred">{{cell.dist.toFixed(2)}}км</b></td></tr>
                             <tr><td align="left">Средняя дистанция</td><td><b class="colordarkred">{{cell.avgdist.toFixed(2)}}км</b></td></tr>
                             <tr><td align="left">Всего выездов</td><td><b class="colorblack">{{cell.count}}</b></td></tr>
                             <tr><td align="left">Общее время</td><td><b class="colordarkblue">{{cell.time[0]+"ч "+cell.time[1]+"м "+cell.time[2]+"с"}}</b></td></tr>
@@ -100,8 +107,8 @@ if(isset(Route::$url_parts[1])) {
                         <table class="statdisttable" width="100%">
                             <tr><td align="left">Общая средняя</td><td><b class="colordarkred">{{cell.avgspd.toFixed(2)}}км/ч</b></td></tr>
                             <tr title="{{cell.maxavgspd[1]}} - {{cell.maxavgspd[2]}}, {{cell.maxavgspd[4]}}"><td align="left">Максимальная средняя</td><td><b class="colordarkred">{{cell.maxavgspd[0].toFixed(2)}}км/ч</b></td></tr>
-                            <tr title="{{cell.maxpls[1]}} - {{cell.maxpls[2]}}, {{cell.maxpls[4]}}"><td align="left">Максимальный пульс</td><td><b class="colorpurple">{{(cell.maxpls[0] > 0) ? cell.maxpls[0] : "-"}}{{(cell.maxpls[0] > 0) ? "уд/мин" : ""}}</b></td></tr>
-                            <tr><td align="left">Средний пульс</td><td><b class="colorpurple">{{(cell.avgpls > 0) ? cell.avgpls.toFixed(0): "-"}}{{(cell.avgpls > 0) ? "уд/мин" : ""}}</b></td></tr>
+                            <tr title="{{cell.maxpls[1]}} - {{cell.maxpls[2]}}, {{cell.maxpls[4]}}"><td align="left" class="colorpurple"><b>Максимальный пульс</b></td><td><b class="colorpurple">{{(cell.maxpls[0] > 0) ? cell.maxpls[0] : "-"}}{{(cell.maxpls[0] > 0) ? "уд/мин" : ""}}</b></td></tr>
+                            <tr><td align="left" class="colorpurple"><b>Средний пульс</b></td><td><b class="colorpurple">{{(cell.avgpls > 0) ? cell.avgpls.toFixed(0): "-"}}{{(cell.avgpls > 0) ? "уд/мин" : ""}}</b></td></tr>
                             <tr title="{{cell.maxspd[1]}} - {{cell.maxspd[2]}}, {{cell.maxspd[4]}}"><td align="left">Максимальная скорость</td><td><b class="colordarkred">{{cell.maxspd[0].toFixed(2)}}км/ч</b></td></tr>
                         </table>
                         <br>
@@ -115,18 +122,18 @@ if(isset(Route::$url_parts[1])) {
                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                         <h7>&nbsp;</h7>
                         <table width="100%" class="monthtable">
-                                <tr ><td width="15%" align="left">Январь</td><td width="10%"><b class="colorblack">{{cell.monthcount[0]}}</b></td><td width="20%" class="colordarkred"><b>{{cell.monthdist[0].toFixed(2)}}км</b></td><td width="55%"><div class="monthbar" style="width: {{cell.monthperc[0]}}%;"></div</td></tr>
-                                <tr><td align="left">Февраль</td><td><b class="colorblack">{{cell.monthcount[1]}}</b></td><td class="colordarkred"><b>{{cell.monthdist[1].toFixed(2)}}км</b></td><td><div class="monthbar" style="width: {{cell.monthperc[1]}}%;"></div</td></tr>
-                                <tr><td align="left">Март</td><td><b class="colorblack">{{cell.monthcount[2]}}</b></td><td class="colordarkred"><b>{{cell.monthdist[2].toFixed(2)}}км</b></td><td><div class="monthbar" style="width: {{cell.monthperc[2]}}%;"></div</td></tr>
-                                <tr><td align="left">Апрель</td><td><b class="colorblack">{{cell.monthcount[3]}}</b></td><td class="colordarkred"><b>{{cell.monthdist[3].toFixed(2)}}км</b></td><td><div class="monthbar" style="width: {{cell.monthperc[3]}}%;"></div</td></tr>
-                                <tr><td align="left">Май</td><td><b class="colorblack">{{cell.monthcount[4]}}</b></td><td class="colordarkred"><b>{{cell.monthdist[4].toFixed(2)}}км</b></td><td><div class="monthbar" style="width: {{cell.monthperc[4]}}%;"></div</td></tr>
-                                <tr><td align="left">Июнь</td><td><b class="colorblack">{{cell.monthcount[5]}}</b></td><td class="colordarkred"><b>{{cell.monthdist[5].toFixed(2)}}км</b></td><td><div class="monthbar" style="width: {{cell.monthperc[5]}}%;"></div</td></tr>
-                                <tr><td align="left">Июль</td><td><b class="colorblack">{{cell.monthcount[6]}}</b></td><td class="colordarkred"><b>{{cell.monthdist[6].toFixed(2)}}км</b></td><td><div class="monthbar" style="width: {{cell.monthperc[6]}}%;"></div</td></tr>
-                                <tr><td align="left">Авуст</td><td><b class="colorblack">{{cell.monthcount[7]}}</b></td><td class="colordarkred"><b>{{cell.monthdist[7].toFixed(2)}}км</b></td><td><div class="monthbar" style="width: {{cell.monthperc[7]}}%;"></div</td></tr>
-                                <tr><td align="left">Сентябрь</td><td><b class="colorblack">{{cell.monthcount[8]}}</b></td><td class="colordarkred"><b>{{cell.monthdist[8].toFixed(2)}}км</b></td><td><div class="monthbar" style="width: {{cell.monthperc[8]}}%;"></div</td></tr>
-                                <tr><td align="left">Октябрь</td><td><b class="colorblack">{{cell.monthcount[9]}}</b></td><td class="colordarkred"><b>{{cell.monthdist[9].toFixed(2)}}км</b></td><td><div class="monthbar" style="width: {{cell.monthperc[9]}}%;"></div</td></tr>
-                                <tr><td align="left">Ноябрь</td><td><b class="colorblack">{{cell.monthcount[10]}}</b></td><td class="colordarkred"><b>{{cell.monthdist[10].toFixed(2)}}км</b></td><td><div class="monthbar" style="width: {{cell.monthperc[10]}}%;"></div</td></tr>
-                                <tr><td align="left">Декабрь</td><td><b class="colorblack">{{cell.monthcount[11]}}</b></td><td class="colordarkred"><b>{{cell.monthdist[11].toFixed(2)}}км</b></td><td><div class="monthbar" style="width: {{cell.monthperc[11]}}%;"></div></td></tr>
+                                <tr class="{{(cell.monthcount[0] > 0) ? \'cellmonth\' : \'\'}}"><td class="monthmonth" width="15%" align="left">Январь</td><td width="10%" class="monthcnt">{{cell.monthcount[0]}}</td><td width="25%" class="monthdst">{{cell.monthdist[0].toFixed(2)}}км</td><td width="50%"><div class="monthbar" style="width: {{cell.monthperc[0]}}%;"></div></td></tr>
+                                <tr class="{{(cell.monthcount[1] > 0) ? \'cellmonth\' : \'\'}}"><td class="monthmonth" align="left">Февраль</td><td class="monthcnt">{{cell.monthcount[1]}}</td><td class="monthdst">{{cell.monthdist[1].toFixed(2)}}км</td><td><div class="monthbar" style="width: {{cell.monthperc[1]}}%;"></div></td></tr>
+                                <tr class="{{(cell.monthcount[2] > 0) ? \'cellmonth\' : \'\'}}"><td class="monthmonth" align="left">Март</td><td class="monthcnt">{{cell.monthcount[2]}}</td><td class="monthdst">{{cell.monthdist[2].toFixed(2)}}км</td><td><div class="monthbar" style="width: {{cell.monthperc[2]}}%;"></div></td></tr>
+                                <tr class="{{(cell.monthcount[3] > 0) ? \'cellmonth\' : \'\'}}"><td class="monthmonth" align="left">Апрель</td><td class="monthcnt">{{cell.monthcount[3]}}</td><td class="monthdst">{{cell.monthdist[3].toFixed(2)}}км</td><td><div class="monthbar" style="width: {{cell.monthperc[3]}}%;"></div></td></tr>
+                                <tr class="{{(cell.monthcount[4] > 0) ? \'cellmonth\' : \'\'}}"><td class="monthmonth" align="left">Май</td><td class="monthcnt">{{cell.monthcount[4]}}</td><td class="monthdst">{{cell.monthdist[4].toFixed(2)}}км</td><td><div class="monthbar" style="width: {{cell.monthperc[4]}}%;"></div></td></tr>
+                                <tr class="{{(cell.monthcount[5] > 0) ? \'cellmonth\' : \'\'}}"><td class="monthmonth" align="left">Июнь</td><td class="monthcnt">{{cell.monthcount[5]}}</td><td class="monthdst">{{cell.monthdist[5].toFixed(2)}}км</td><td><div class="monthbar" style="width: {{cell.monthperc[5]}}%;"></div></td></tr>
+                                <tr class="{{(cell.monthcount[6] > 0) ? \'cellmonth\' : \'\'}}"><td class="monthmonth" align="left">Июль</td><td class="monthcnt">{{cell.monthcount[6]}}</td><td class="monthdst">{{cell.monthdist[6].toFixed(2)}}км</td><td><div class="monthbar" style="width: {{cell.monthperc[6]}}%;"></div></td></tr>
+                                <tr class="{{(cell.monthcount[7] > 0) ? \'cellmonth\' : \'\'}}"><td class="monthmonth" align="left">Август</td><td class="monthcnt">{{cell.monthcount[7]}}</td><td class="monthdst">{{cell.monthdist[7].toFixed(2)}}км</td><td><div class="monthbar" style="width: {{cell.monthperc[7]}}%;"></div></td></tr>
+                                <tr class="{{(cell.monthcount[8] > 0) ? \'cellmonth\' : \'\'}}"><td class="monthmonth" align="left">Сентябрь</td><td class="monthcnt">{{cell.monthcount[8]}}</td><td class="monthdst">{{cell.monthdist[8].toFixed(2)}}км</td><td><div class="monthbar" style="width: {{cell.monthperc[8]}}%;"></div></td></tr>
+                                <tr class="{{(cell.monthcount[9] > 0) ? \'cellmonth\' : \'\'}}"><td class="monthmonth" align="left">Октябрь</td><td class="monthcnt">{{cell.monthcount[9]}}</td><td class="monthdst">{{cell.monthdist[9].toFixed(2)}}км</td><td><div class="monthbar" style="width: {{cell.monthperc[9]}}%;"></div></td></tr>
+                                <tr class="{{(cell.monthcount[10] > 0) ? \'cellmonth\' : \'\'}}"><td class="monthmonth" align="left">Ноябрь</td><td class="monthcnt">{{cell.monthcount[10]}}</td><td class="monthdst">{{cell.monthdist[10].toFixed(2)}}км</td><td><div class="monthbar" style="width: {{cell.monthperc[10]}}%;"></div></td></tr>
+                                <tr class="{{(cell.monthcount[11] > 0) ? \'cellmonth\' : \'\'}}"><td class="monthmonth" align="left">Декабрь</td><td class="monthcnt">{{cell.monthcount[11]}}</td><td class="monthdst">{{cell.monthdist[11].toFixed(2)}}км</td><td><div class="monthbar" style="width: {{cell.monthperc[11]}}%;"></div></td></tr>
                         </table>
                         </div>
                         <h7>&nbsp;</h7>
@@ -238,7 +245,7 @@ if(isset(Route::$url_parts[1])) {
     };
 }
 else {
-		MessageShow::set('У вас нет своей статистики. Гость может просмотреть статистику зарегестрированных пользователей', 1);
+		MessageShow::set('Введите логин пользователя, для просмотра статистики.', 2);
     	function ShowContent() {
             echo '<h2 align="center">Статистика</h2> 
                 <div align="center"><b>Введите логин пользователя: </b><input id="enteruserstat" size="8" placeholder="login"></input>

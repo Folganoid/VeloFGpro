@@ -114,11 +114,23 @@ body {
 .monthtable {
 	text-align: right;
 	white-space: nowrap;
+	font-weight: bold;
 }
 
 .monthtable tr td {
 	padding-right: 3px;
 }
+
+.cellmonth .monthcnt  {
+	color: black;
+}
+.cellmonth .monthmonth  {
+	color: darkblue;
+}
+.cellmonth .monthdst  {
+	color: darkred;
+}
+
 
 .lasttable tr td {
 	padding-left: 5px;
@@ -205,10 +217,10 @@ body {
 }
 #calendar2 tbody td.today {
 	border-radius: 15px;
-	background: -moz-radial-gradient(left, darkred, red);
-	background: -o-radial-gradient(left, darkred, red);
-	background: -webkit-radial-gradient(left, darkred, red);
-	background: -ms-radial-gradient(left, darkred, red);
+	background: -moz-radial-gradient(left, darkblue, royalblue);
+	background: -o-radial-gradient(left, darkblue, royalblue);
+	background: -webkit-radial-gradient(left, darkblue, royalblue);
+	background: -ms-radial-gradient(left, darkblue, royalblue);
 	color: #fff;
 }
 
@@ -219,4 +231,21 @@ body {
 .butY:hover {
 	color: rgb(240,240,240);
 	text-shadow: 0 0 0.2em #87F, 0 0 0.2em #87F, 0 0 0.2em #87F;
+}
+
+.littlestat {
+	font-size: 10px;
+	text-align: right;
+	color: dimgrey;
+}
+
+.datatable {
+	max-height: 110px;
+	overflow: auto;
+}
+
+.datatable table {
+	text-align: right;
+	width: 80%;
+	font-size: 11px;
 }

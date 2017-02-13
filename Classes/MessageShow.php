@@ -11,7 +11,7 @@ class MessageShow { //создает полосу сообщений
 
         }
         else if ($num == 2) {
-            $_SESSION['MESSAGE'] = '<div class="message" style="background-color: orange;">ПРЕДУПРЕЖДЕНИЕ: '.$text.'</div>';
+            $_SESSION['MESSAGE'] = '<div class="message" style="background-color: darkorange;">ПРЕДУПРЕЖДЕНИЕ: '.$text.'</div>';
         }
         else if ($num == 3) {
             $_SESSION['MESSAGE'] = '<div class="message" style="background-color: green;">ИНФОРМАЦИЯ: '.$text.'</div>';
