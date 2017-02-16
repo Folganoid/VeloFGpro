@@ -7,6 +7,8 @@ if (isset($_SESSION['USER_ID'])) {
     {
         echo '
 
+    <script src="/js/data.js"></script>
+
 	<h2 align="center">Управление данными</h2>
 	
 	<div class="container">
@@ -15,41 +17,59 @@ if (isset($_SESSION['USER_ID'])) {
 	<FORM method="post" action="" id="form1" NAME="form1">
     <h3 align="center">ДОБАВИТЬ РАСШИРЕННУЮ СТАТИСТИКУ </h3>
     <TABLE>
-        <TR><TD>Транспортное средство: </TD>
+        <TR><TD>Транспортное средство<span class="colordarkred">*</span>: </TD>
             <TD><select id="form1ts" name="form1ts">';
         Data::getOptionTs();
         echo '
                 </select>
             </TD>
         </TR>
-        <TR><TD>Дата:</TD>
-            <TD><INPUT id="form1day" name="form1day" SIZE=2 maxlength="2" pattern="[0-9]{1,2}" value="">:<INPUT id="form1month" name="form1month" SIZE=2 maxlength="2" pattern="[0-9]{1,2}" value="">:<INPUT id="form1year" name="form1year" SIZE=4 maxlength="4" pattern="[0-9]{4}" value=""></TD></TR>
-        <TR><TD>Описание:</TD>
-             <TD><TEXTAREA name="form1name" ROWS=2 COLS=30></TEXTAREA></TD></TR>
-        <TR><TD>Дистанция:</TD>
-            <TD><INPUT name="form1dist" size=6 maxlength="6" pattern="\d+(\.\d{2})?" value="0.00">км</TD></TR>
-        <TR><TD>Время:</TD>
-            <TD><INPUT id="form1hr" name="form1hr" SIZE=2 maxlength="2" pattern="[0-9]{1,2}" value="00">ч <INPUT id="form1min" name="form1min" SIZE=2 maxlength="2" pattern="[0-9]{1,2}" value="00">мин <INPUT id="form1sec" name="form1sec" SIZE=2 maxlength="2" pattern="[0-9]{1,2}" value="00">сек</TD></TR>
-        <TR><TD>Средняя скорость:</TD>
-            <TD><INPUT name="form1avgspd" SIZE=5 maxlength="6" pattern="\d+(\.\d{2})?" value="0.00">км/ч</TD></TR>
+        <TR><TD class="colordarkblue">Дата<span class="colordarkred">*</span>:</TD>
+            <TD>
+            <INPUT id="form1day" name="form1day" SIZE=2 maxlength="2" pattern="[0-9]{1,2}" required>:
+            <select id="form1month" name="form1month" required>
+                <option id="form1m0" value="0">Январь</option>
+                <option id="form1m1" value="1">Февраль</option>
+                <option id="form1m2" value="2">Март</option>
+                <option id="form1m3" value="3">Апрель</option>
+                <option id="form1m4" value="4">Май</option>
+                <option id="form1m5" value="5">Июнь</option>
+                <option id="form1m6" value="6">Июль</option>
+                <option id="form1m7" value="7">Август</option>
+                <option id="form1m8" value="8">Сентябрь</option>
+                <option id="form1m9" value="9">Октябрь</option>
+                <option id="form1m10" value="10">Ноябрь</option>
+                <option id="form1m11" value="11">Декабрь</option>
+            </select>:
+            <INPUT id="form1year" name="form1year" SIZE=4 maxlength="4" pattern="[0-9]{4}" value="" required>
+            </TD>
+        </TR>
+        <TR><TD>Описание<span class="colordarkred">*</span>:</TD>
+             <TD><INPUT name="form1name" SIZE="25" maxlength="50" required></TD></TR>
+        <TR><TD class="colordarkred">Дистанция<span class="colordarkred">*</span>:</TD>
+            <TD><INPUT id="form1dist" name="form1dist" size=6 maxlength="6" pattern="\d+(\.\d{1,2})?" placeholder="0.00" required>км</TD></TR>
+        <TR><TD class="colordarkblue">Время<span class="colordarkred">*</span>:</TD>
+            <TD><INPUT id="form1hr" name="form1hr" SIZE=2 maxlength="2" pattern="[0-9]{1,2}" placeholder="00" required>ч <INPUT id="form1min" name="form1min" SIZE=2 maxlength="2" pattern="[0-9]{1,2}" placeholder="00" required>мин <INPUT id="form1sec" name="form1sec" SIZE=2 maxlength="2" pattern="[0-9]{1,2}" placeholder="00" required>сек</TD></TR>
+        <TR><TD>Средняя скорость<span class="colordarkred">*</span>:</TD>
+            <TD><INPUT id="form1avgspd" name="form1avgspd" SIZE=5 maxlength="6" pattern="\d+(\.\d{2})?" placeholder="0.00" required>км/ч</TD></TR>
         <TR><TD>Макс.скорость:</TD>
-            <TD><INPUT name="form1maxspd" SIZE=5 maxlength="6" pattern="\d+(\.\d{2})?" value="0.00">км/ч</TD></TR>
-        <TR><TD>Средний пульс:</TD>
-            <TD><INPUT name="form1avgpls" SIZE=3 maxlength="3" pattern="[0-9]{2,3}" value="0">уд/мин</TD></TR>
-        <TR><TD>Макс.пульс:</TD>
-            <TD><INPUT name="form1maxpls" SIZE=3 maxlength="3" pattern="[0-9]{2,3}" value="0">уд/мин</TD></TR>
-        <TR><TD>Температура:</TD>
-            <TD><INPUT name="form1temp" SIZE=7 maxlength="10" value="+1...+10">&#186;C</TD></TR>
-        <TR><TD>Асфальт:</TD>
-            <TD><INPUT id="form1asf" name="form1asf" SIZE=3 maxlength="3" pattern="[0-9]{1,3}" value="0">%</TD></TR>
-        <TR><TD>Твердое покрытие:</TD>
-            <TD><INPUT id="form1tvp" name="form1tvp" SIZE=3 maxlength="3" pattern="[0-9]{1,3}" value="0">%</TD></TR>
-        <TR><TD>Грунт:</TD>
-            <TD><INPUT id="form1grnt" name="form1grnt" SIZE=3 maxlength="3" pattern="[0-9]{1,3}" value="0">%</TD></TR>
-        <TR><TD>Бездорожье:</TD>
-            <TD><INPUT id="form1bzd" name="form1bzd" SIZE=3 maxlength="3" pattern="[0-9]{1,3}" value="0">% &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b id="sumsrf"></b></TD></TR>
+            <TD><INPUT name="form1maxspd" SIZE=5 maxlength="6" pattern="\d+(\.\d{2})?" placeholder="0.00">км/ч</TD></TR>
+        <TR><TD class="colorpurple">Средний пульс:</TD>
+            <TD><INPUT name="form1avgpls" SIZE=3 maxlength="3" pattern="[0-9]{0,3}" placeholder="0">уд/мин</TD></TR>
+        <TR><TD class="colorpurple">Макс.пульс:</TD>
+            <TD><INPUT name="form1maxpls" SIZE=3 maxlength="3" pattern="[0-9]{0,3}" placeholder="0">уд/мин</TD></TR>
+        <TR><TD>Температура<span class="colordarkred">*</span>:</TD>
+            <TD><INPUT name="form1temp" SIZE=7 maxlength="10" placeholder="+1...+10" required>&#186;C</TD></TR>
+        <TR><TD>Асфальт<span class="colordarkred">*</span>:</TD>
+            <TD><INPUT id="form1asf" name="form1asf" SIZE=3 maxlength="3" pattern="[0-9]{1,3}">%</TD></TR>
+        <TR><TD>Твердое покрытие<span class="colordarkred">*</span>:</TD>
+            <TD><INPUT id="form1tvp" name="form1tvp" SIZE=3 maxlength="3" pattern="[0-9]{1,3}">%</TD></TR>
+        <TR><TD>Грунт<span class="colordarkred">*</span>:</TD>
+            <TD><INPUT id="form1grnt" name="form1grnt" SIZE=3 maxlength="3" pattern="[0-9]{1,3}">%</TD></TR>
+        <TR><TD>Бездорожье<span class="colordarkred">*</span>:</TD>
+            <TD><INPUT id="form1bzd" name="form1bzd" SIZE=3 maxlength="3" pattern="[0-9]{1,3}">% &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b id="sumsrf"></b></TD></TR>
         <TR><TD>Резина:</TD>
-            <TD><select name="form1tires">';
+            <TD><select name="form1tire">';
         Data::getOptionTires();
         echo '
                 </select>
@@ -65,6 +85,7 @@ if (isset($_SESSION['USER_ID'])) {
     <INPUT TYPE="reset" VALUE="Сброс"></input>
     </div>
   </FORM>
+  <p><b><span class="colordarkred">*</span> - Обязательно к заполнению.</b></p>
   
   </div>
   
@@ -73,15 +94,15 @@ if (isset($_SESSION['USER_ID'])) {
 	<FORM method="post" action="/data" id="form2" NAME="form2">
     <h3 align="center">ДОБАВИТЬ ГОДОВОЙ НАКАТ</h3>
     <TABLE>
-        <TR><TD>Транспортное средство: </TD>
+        <TR><TD>Транспортное средство<span class="colordarkred">*</span>: </TD>
             <TD><select name="form2ts">';
         Data::getOptionTs();
         echo '
                 </select>
             </TD>
         </TR>
-        <TR><TD><b class="colordarkblue">Год</b> / <b class="colordarkred">Дистанция</b></TD>
-            <TD><INPUT name="form2year" SIZE=4 maxlength="4" pattern="[0-9]{4}" placeholder="год"> / <INPUT name="form2dist" size=8 maxlength="8" pattern="\d+(\.\d{2})?" placeholder="0.00км"></TD></TR>
+        <TR><TD><b class="colordarkblue">Год<span class="colordarkred">*</span></b> / <b class="colordarkred">Дистанция<span class="colordarkred">*</span></b></TD>
+            <TD><INPUT name="form2year" SIZE=4 maxlength="4" pattern="[0-9]{4}" placeholder="год" required> / <INPUT name="form2dist" size=8 maxlength="8" pattern="\d+(\.\d{2})?" placeholder="0.00" required>км</TD></TR>
         </TABLE>
             <div>
             	<input name="id_form" type="hidden" value="form2"></input>
@@ -101,7 +122,7 @@ if (isset($_SESSION['USER_ID'])) {
             <div class="row">
        		<h4>ДОБАВИТЬ ТС</h4>
        		<FORM method="post" action="/data" NAME="form3">
-       		<INPUT name="form3ts" SIZE="20"></INPUT>
+       		<INPUT name="form3ts" SIZE="25" maxlength="50"></INPUT>
        		        <input name="id_form" type="hidden" value="form3"></input>
     				<INPUT TYPE="submit" name="enter" VALUE="Добавить"></input> 
     				<INPUT TYPE="reset" VALUE="Сброс"></input>
@@ -119,7 +140,7 @@ if (isset($_SESSION['USER_ID'])) {
 		<div class="row">
        		<h4>ДОБАВИТЬ РЕЗИНУ</h4>
        		<FORM method="post" action="/data" NAME="form4">
-       		<INPUT name="form4tire" SIZE="20"></INPUT>
+       		<INPUT name="form4tire" SIZE="25" maxlength="50"></INPUT>
        		        <input name="id_form" type="hidden" value="form4"></input>
     				<INPUT TYPE="submit" name="enter" VALUE="Добавить"></input> 
     				<INPUT TYPE="reset" VALUE="Сброс"></input>
@@ -139,7 +160,7 @@ if (isset($_SESSION['USER_ID'])) {
   
   </div>
   
-		
+<script>fillCells();</script>
 
 	';
     };

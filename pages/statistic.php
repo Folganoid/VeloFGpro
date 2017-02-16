@@ -105,11 +105,11 @@ if(isset(Route::$url_parts[1])) {
                         <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                         <h7>&nbsp;</h7>
                         <table class="statdisttable" width="100%">
-                            <tr><td align="left">Общая средняя</td><td><b class="colordarkred">{{cell.avgspd.toFixed(2)}}км/ч</b></td></tr>
+                            <tr><td align="left">Общая средняя</td><td><b class="colordarkred">{{cell.avgspd}}км/ч</b></td></tr>
                             <tr title="{{cell.maxavgspd[1]}} - {{cell.maxavgspd[2]}}, {{cell.maxavgspd[4]}}"><td align="left">Максимальная средняя</td><td><b class="colordarkred">{{cell.maxavgspd[0].toFixed(2)}}км/ч</b></td></tr>
                             <tr title="{{cell.maxpls[1]}} - {{cell.maxpls[2]}}, {{cell.maxpls[4]}}"><td align="left" class="colorpurple"><b>Максимальный пульс</b></td><td><b class="colorpurple">{{(cell.maxpls[0] > 0) ? cell.maxpls[0] : "-"}}{{(cell.maxpls[0] > 0) ? "уд/мин" : ""}}</b></td></tr>
                             <tr><td align="left" class="colorpurple"><b>Средний пульс</b></td><td><b class="colorpurple">{{(cell.avgpls > 0) ? cell.avgpls.toFixed(0): "-"}}{{(cell.avgpls > 0) ? "уд/мин" : ""}}</b></td></tr>
-                            <tr title="{{cell.maxspd[1]}} - {{cell.maxspd[2]}}, {{cell.maxspd[4]}}"><td align="left">Максимальная скорость</td><td><b class="colordarkred">{{cell.maxspd[0].toFixed(2)}}км/ч</b></td></tr>
+                            <tr title="{{cell.maxspd[1]}} - {{cell.maxspd[2]}}, {{cell.maxspd[4]}}"><td align="left">Максимальная скорость</td><td><b class="colordarkred">{{(cell.maxspd[0] > 0) ? (cell.maxspd[0].toFixed(2)) : ""}}{{(cell.maxspd[0] > 0) ? "км/ч" : "-"}}</b></td></tr>
                         </table>
                         <br>
                             <table class="statdisttable" width="100%" title="{{cell.tehnote[3]}}">
@@ -202,7 +202,7 @@ if(isset(Route::$url_parts[1])) {
                                     <td  width="10%">{{cell[2]}}</td>
                                     <td width="8%" class="colordarkred cellright"><b>{{cell[1]}}км</b></td>
                                     <td width="7%"  class="cellright">{{cell[16]}}°С</td>
-                                    <td width="8%"><a href="/statistic/{{cell[0]}}">Показать</a></td>
+                                    <td width="8%"><a href="/statenhance/{{cell[0]}}">Показать</a></td>
                                     <td width="2%" title="{{cell[15]}}"><b style="color: red;">{{(cell[15] != "") ? "🛠" : ""}}</b></td>
                                 </tr>
                             </table>

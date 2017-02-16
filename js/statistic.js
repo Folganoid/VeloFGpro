@@ -294,7 +294,7 @@ angular
                 tmpObj.avgtime = secInTime(tmpObj.time / tmpObj.count);
                 tmpObj.time = secInTime(tmpObj.time);
                 tmpObj.avgdist = tmpObj.dist / tmpObj.count;
-                tmpObj.avgspd = tmpObj.dist * 3600 / timeInSec(tmpObj.time[0] + ':' + tmpObj.time[1] + ':' + tmpObj.time[2]);
+                tmpObj.avgspd = (tmpObj.dist * 3600 / timeInSec(tmpObj.time[0] + ':' + tmpObj.time[1] + ':' + tmpObj.time[2])).toFixed(2);
                 tmpObj.avgpls = tmpObj.avgpls[0] / tmpObj.avgpls[1];
 
                 var distmax = Math.max.apply(null, tmpObj.monthdist);
@@ -309,7 +309,6 @@ angular
                 (tmpObj.last[1] > tmpObj.avgdist) ? (tmpObj.last[7] = ['green', '▲']) : (tmpObj.last[1] == tmpObj.avgdist) ? (tmpObj.last[7] = ['#cc7a00', '⊗']) : (tmpObj.last[7] = ['red', '▼']);
                 (tmpObj.last[2] > tmpObj.avgspd) ? (tmpObj.last[8] = ['green', '▲']) : (tmpObj.last[2] == tmpObj.avgspd) ? (tmpObj.last[8] = ['#cc7a00', '⊗']) : (tmpObj.last[8] = ['red', '▼']);
                 (tmpObj.last[3] > tmpObj.avgpls) ? (tmpObj.last[9] = ['red', '▲']) : (tmpObj.last[3] == tmpObj.avgpls) ? (tmpObj.last[9] = ['#cc7a00', '⊗']) : (tmpObj.last[9] = ['green', '▼']);
-
                 return tmpObj;
             };
         return tmpArr10;
