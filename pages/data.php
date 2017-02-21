@@ -76,7 +76,7 @@ if (isset($_SESSION['USER_ID'])) {
             </TD>
         </TR>
         <TR><TD>Технические примечания: </TD>
-            <TD><TEXTAREA name="form1content" ROWS=2 COLS=30></TEXTAREA></TD></TR>
+            <TD><input name="form1content" size="25" maxlength="256"></input></TD></TR>
     </TABLE>
        <!-- Кнопки готовности и сброса -->
     <div>
@@ -110,7 +110,6 @@ if (isset($_SESSION['USER_ID'])) {
     			<INPUT TYPE="reset" VALUE="Сброс"></input>
     		</div>
         </FORM>	
-        <br>
         <div class="datatable">
         <table align="left">';
         Data::getOdo();
@@ -122,13 +121,12 @@ if (isset($_SESSION['USER_ID'])) {
             <div class="row">
        		<h4>ДОБАВИТЬ ТС</h4>
        		<FORM method="post" action="/data" NAME="form3">
-       		<INPUT name="form3ts" SIZE="25" maxlength="50"></INPUT>
+       		<INPUT name="form3ts" SIZE="25" maxlength="50" required></INPUT>
        		        <input name="id_form" type="hidden" value="form3"></input>
     				<INPUT TYPE="submit" name="enter" VALUE="Добавить"></input> 
     				<INPUT TYPE="reset" VALUE="Сброс"></input>
 
 			</FORM>
-			<br>
             <div class="datatable">
 			<table align="left">';
         Data::getTs();
@@ -140,12 +138,11 @@ if (isset($_SESSION['USER_ID'])) {
 		<div class="row">
        		<h4>ДОБАВИТЬ РЕЗИНУ</h4>
        		<FORM method="post" action="/data" NAME="form4">
-       		<INPUT name="form4tire" SIZE="25" maxlength="50"></INPUT>
+       		<INPUT name="form4tire" SIZE="25" maxlength="50" required></INPUT>
        		        <input name="id_form" type="hidden" value="form4"></input>
     				<INPUT TYPE="submit" name="enter" VALUE="Добавить"></input> 
     				<INPUT TYPE="reset" VALUE="Сброс"></input>
 			</FORM>
-			<br>
             <div class="datatable">
 			<table align="left">';
         Data::getTires();

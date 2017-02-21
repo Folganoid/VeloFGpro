@@ -72,6 +72,16 @@ angular
             else $scope.curYear = $scope.yearsList[tmpY];
         };
 
+        $scope.transDate = function(date){
+            var yr = date.slice(0, 4);
+            var mn = date.slice(5, 7);
+            var dy = date.slice(8, 10);
+
+            var mnnum = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
+
+            return dy+" "+mnnum[+mn-1]+"."+yr;
+        };
+
         function pulseZ(){
             res = (220 - ($scope.curYear - brthYear))/2;
             mod = res / 5;
@@ -306,9 +316,9 @@ angular
                     tmpObj.surfaceperc[i] = tmpObj.surfacedist[i] * 100 / tmpObj.dist;
                 }
 
-                (tmpObj.last[1] > tmpObj.avgdist) ? (tmpObj.last[7] = ['green', '▲']) : (tmpObj.last[1] == tmpObj.avgdist) ? (tmpObj.last[7] = ['#cc7a00', '⊗']) : (tmpObj.last[7] = ['red', '▼']);
-                (tmpObj.last[2] > tmpObj.avgspd) ? (tmpObj.last[8] = ['green', '▲']) : (tmpObj.last[2] == tmpObj.avgspd) ? (tmpObj.last[8] = ['#cc7a00', '⊗']) : (tmpObj.last[8] = ['red', '▼']);
-                (tmpObj.last[3] > tmpObj.avgpls) ? (tmpObj.last[9] = ['red', '▲']) : (tmpObj.last[3] == tmpObj.avgpls) ? (tmpObj.last[9] = ['#cc7a00', '⊗']) : (tmpObj.last[9] = ['green', '▼']);
+                (+String(tmpObj.last[1]) > +String(tmpObj.avgdist)) ? (tmpObj.last[7] = ['green', '▲']) : (tmpObj.last[1] == tmpObj.avgdist) ? (tmpObj.last[7] = ['#cc7a00', '⊗']) : (tmpObj.last[7] = ['red', '▼']);
+                (+String(tmpObj.last[2]) > +String(tmpObj.avgspd)) ? (tmpObj.last[8] = ['green', '▲']) : (+tmpObj.last[2] == +tmpObj.avgspd) ? (tmpObj.last[8] = ['#cc7a00', '⊗']) : (tmpObj.last[8] = ['red', '▼']);
+                (+String(tmpObj.last[3]) > +String(tmpObj.avgpls)) ? (tmpObj.last[9] = ['red', '▲']) : (tmpObj.last[3] == tmpObj.avgpls) ? (tmpObj.last[9] = ['#cc7a00', '⊗']) : (tmpObj.last[9] = ['green', '▼']);
                 return tmpObj;
             };
         return tmpArr10;

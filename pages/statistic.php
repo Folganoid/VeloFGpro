@@ -87,9 +87,8 @@ if(isset(Route::$url_parts[1])) {
                         <h7>&nbsp;</h7>
                         <table class="statdisttable" width="100%">
                             <tr><td width="60%" align="left" class="colordarkred"><b>Пройденная дистанция</b></td><td width="40%"><b class="colordarkred">{{cell.dist.toFixed(2)}}км</b></td></tr>
-                            <tr><td align="left">Средняя дистанция</td><td><b class="colordarkred">{{cell.avgdist.toFixed(2)}}км</b></td></tr>
-                            <tr><td align="left">Всего выездов</td><td><b class="colorblack">{{cell.count}}</b></td></tr>
                             <tr><td align="left">Общее время</td><td><b class="colordarkblue">{{cell.time[0]+"ч "+cell.time[1]+"м "+cell.time[2]+"с"}}</b></td></tr>
+                            <tr><td align="left">Средняя дистанция</td><td><b class="colordarkred">{{cell.avgdist.toFixed(2)}}км</b></td></tr>
                             <tr><td align="left">Среднее время</td><td><b class="colordarkblue">{{cell.avgtime[0]+":"+cell.avgtime[1]+":"+cell.avgtime[2]}}</b></td></tr>
                         </table>
                         <br>
@@ -106,14 +105,14 @@ if(isset(Route::$url_parts[1])) {
                         <h7>&nbsp;</h7>
                         <table class="statdisttable" width="100%">
                             <tr><td align="left">Общая средняя</td><td><b class="colordarkred">{{cell.avgspd}}км/ч</b></td></tr>
-                            <tr title="{{cell.maxavgspd[1]}} - {{cell.maxavgspd[2]}}, {{cell.maxavgspd[4]}}"><td align="left">Максимальная средняя</td><td><b class="colordarkred">{{cell.maxavgspd[0].toFixed(2)}}км/ч</b></td></tr>
-                            <tr title="{{cell.maxpls[1]}} - {{cell.maxpls[2]}}, {{cell.maxpls[4]}}"><td align="left" class="colorpurple"><b>Максимальный пульс</b></td><td><b class="colorpurple">{{(cell.maxpls[0] > 0) ? cell.maxpls[0] : "-"}}{{(cell.maxpls[0] > 0) ? "уд/мин" : ""}}</b></td></tr>
+                            <tr title="{{transDate(cell.maxavgspd[1])}} - {{cell.maxavgspd[2]}}, {{cell.maxavgspd[4]}}"><td align="left">Максимальная средняя</td><td><b class="colordarkred">{{cell.maxavgspd[0].toFixed(2)}}км/ч</b></td></tr>
+                            <tr title="{{transDate(cell.maxpls[1])}} - {{cell.maxpls[2]}}, {{cell.maxpls[4]}}"><td align="left" class="colorpurple"><b>Максимальный пульс</b></td><td><b class="colorpurple">{{(cell.maxpls[0] > 0) ? cell.maxpls[0] : "-"}}{{(cell.maxpls[0] > 0) ? "уд/мин" : ""}}</b></td></tr>
                             <tr><td align="left" class="colorpurple"><b>Средний пульс</b></td><td><b class="colorpurple">{{(cell.avgpls > 0) ? cell.avgpls.toFixed(0): "-"}}{{(cell.avgpls > 0) ? "уд/мин" : ""}}</b></td></tr>
-                            <tr title="{{cell.maxspd[1]}} - {{cell.maxspd[2]}}, {{cell.maxspd[4]}}"><td align="left">Максимальная скорость</td><td><b class="colordarkred">{{(cell.maxspd[0] > 0) ? (cell.maxspd[0].toFixed(2)) : ""}}{{(cell.maxspd[0] > 0) ? "км/ч" : "-"}}</b></td></tr>
+                            <tr title="{{transDate(cell.maxspd[1])}} - {{cell.maxspd[2]}}, {{cell.maxspd[4]}}"><td align="left">Максимальная скорость</td><td><b class="colordarkred">{{(cell.maxspd[0] > 0) ? (cell.maxspd[0].toFixed(2)) : ""}}{{(cell.maxspd[0] > 0) ? "км/ч" : "-"}}</b></td></tr>
                         </table>
                         <br>
                             <table class="statdisttable" width="100%" title="{{cell.tehnote[3]}}">
-                            <tr><td align="left"><b>Последнее ТО - <span class="colordarkblue">{{cell.tehnote[2]}}</span></b></td><td><b class="colordarkred">{{cell.tehnote[1]}}км</b></td></tr>
+                            <tr><td align="left"><b>Последнее ТО(<span class="colordarkblue">{{transDate(cell.tehnote[2])}}</span>)</b></td><td><b class="colordarkred">{{cell.tehnote[1]}}км</b></td></tr>
                             </table>
                             <dd><b>{{(cell.tehnote[3] != cell.namets) ? cell.tehnote[3] :""}}</b></dd>
                             <p align="justify">{{cell.tehnote[0]}}</p>
@@ -140,11 +139,11 @@ if(isset(Route::$url_parts[1])) {
                         <div align="center" class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
                             <h4 class="colorblack" title="{{cell.last[4]}} - {{cell.last[5]}}">Последний выезд
                             <dd>{{(cell.last[5] != cell.namets) ? cell.last[5] : ""}}</dd>
-                            <dd><span class="colordarkblue">{{cell.last[0]}}</span></dd></h4>
+                            <dd><span class="colordarkblue">{{transDate(cell.last[0])}}</span></dd></h4>
                             <table class="lasttable">
-                            <tr title="Пройденная дистанция"><td><span class="colorblack glyphicon glyphicon-road"></span></td><td style="color: {{cell.last[7][0]}};">{{cell.last[7][1]}}</td><td><b class="colordarkred">{{cell.last[1]}}км</b></td></tr>
-                            <tr title="Средняя скорость"><td align="left"><span class="colorblack glyphicon glyphicon-dashboard"></span></td><td style="color: {{cell.last[8][0]}};">{{cell.last[8][1]}}</td><td><b class="colordarkred">{{cell.last[2]}}км/ч</b></td></tr>
-                            <tr title="Средний пульс"><td align="left"><span class="colorblack glyphicon glyphicon-heart"></span></td><td style="color: {{cell.last[9][0]}};">{{(cell.last[3] > 0) ? cell.last[9][1] : ""}}</td><td><b class="colorpurple">{{(cell.last[3] > 0) ? cell.last[3] : "-"}}{{(cell.last[3] > 0) ? "уд/мин" : ""}}</b></td></tr>
+                            <tr title="Пройденная дистанция относительно общей средней дистанции"><td><span class="colorblack glyphicon glyphicon-road"></span></td><td style="color: {{cell.last[7][0]}};">{{cell.last[7][1]}}</td><td><b class="colordarkred">{{cell.last[1]}}км</b></td></tr>
+                            <tr title="Средняя скорость относительно общей средней скорости"><td align="left"><span class="colorblack glyphicon glyphicon-dashboard"></span></td><td style="color: {{cell.last[8][0]}};">{{cell.last[8][1]}}</td><td><b class="colordarkred">{{cell.last[2]}}км/ч</b></td></tr>
+                            <tr title="Средний пульс относительно общего среднего пульса"><td align="left"><span class="colorblack glyphicon glyphicon-heart"></span></td><td style="color: {{cell.last[9][0]}};">{{(cell.last[3] > 0) ? cell.last[9][1] : ""}}</td><td><b class="colorpurple">{{(cell.last[3] > 0) ? cell.last[3] : "-"}}{{(cell.last[3] > 0) ? "уд/мин" : ""}}</b></td></tr>
                             <tr title="Забортная температура"><td align="left"><span class="colorblack glyphicon glyphicon-asterisk"></span></td><td></td><td><b>{{cell.last[6]}}°С</b></td></tr>
                             </table>
                         </div>
@@ -196,11 +195,11 @@ if(isset(Route::$url_parts[1])) {
                             <table class="totaltable" border="1">
                             <tr class="tablehead"><td>Дата</td><td>ТС</td><td>Описание</td><td>Время</td><td>Дистанция</td><td>Темп.</td><td>Ссылка</td><td>ТО</td></tr>
                                 <tr ng-repeat="cell in statData | filter:$ctrl.query">
-                                    <td width="10%" class="colordarkblue"><b>{{cell[9]}}</b></td>
+                                    <td width="10%" class="colordarkblue"><b>{{transDate(cell[9])}}</b></td>
                                     <td  width="15%">{{cell[3]}}</td>
                                     <td width="40%">{{cell[14]}}</td>
                                     <td  width="10%">{{cell[2]}}</td>
-                                    <td width="8%" class="colordarkred cellright"><b>{{cell[1]}}км</b></td>
+                                    <td width="8%" class="cellright"><b class="colordarkred">{{cell[1]}}км</b></td>
                                     <td width="7%"  class="cellright">{{cell[16]}}°С</td>
                                     <td width="8%"><a href="/statenhance/{{cell[0]}}">Показать</a></td>
                                     <td width="2%" title="{{cell[15]}}"><b style="color: red;">{{(cell[15] != "") ? "🛠" : ""}}</b></td>
@@ -217,7 +216,7 @@ if(isset(Route::$url_parts[1])) {
                             <table class="tehtable" border="1">
                             <tr class="tablehead"><td>Дата</td><td>ТС</td><td>Описание</td><td>Дистанция</td></tr>
                                 <tr ng-repeat="cell in tehArr | filter:$ctrl.query2">
-                                    <td width="10%"><b class="colordarkblue">{{cell[0]}}</b></td>
+                                    <td width="10%"><b class="colordarkblue">{{transDate(cell[0])}}</b></td>
                                     <td width="15%">{{cell[2]}}</td>
                                     <td width="67%" align="justify">{{cell[1]}}</td>
                                     <td width="8%" class="cellright colordarkred"><b>{{cell[3].toFixed(2)}}км</b></td>
@@ -229,8 +228,6 @@ if(isset(Route::$url_parts[1])) {
                     
                 </div>
                </div>
-          
-              <h4>&nbsp;</h4>
                ';
 ?>
 
