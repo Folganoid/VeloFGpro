@@ -32,7 +32,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="<?php if (isset($_SESSION['USER_LOGIN'])) echo '/statistic'.'/'.$_SESSION['USER_LOGIN']; else echo '/statistic' ?>">Статистика</a></li>
                     <li><a href="/chat">Чат</a></li>
-                    <li><a href="/map">Карта</a></li>
+                    <li><a href="<?php if (isset($_SESSION['USER_LOGIN'])) echo '/map'.'/'.$_SESSION['USER_LOGIN']; else echo '/map' ?>">Карта</a></li>
                     <li><a href="/data">Данные</a></li>
                 </ul>
                 <form class="navbar-form navbar-right" name="auth" action="" method="post">

@@ -13,7 +13,7 @@ if(isset(Route::$url_parts[1])) {
 
 			<h2 align="center">Статистика ' . Route::$url_parts[1] . '</h2>
 			<div class="littlestat"><b>Посмотреть чужую статистику: </b>
-			<input id="enteruserstat" size="8" placeholder="login"></input>
+			<input id="enteruserstat" size="8" placeholder="login" pattern="[A-za-z-0-9]{3,15}"></input>
             <button id="butuserstat"> Перейти </button>
             </div>
             <script>$(\'#butuserstat\').click(function(){
@@ -245,7 +245,7 @@ else {
 		MessageShow::set('Введите логин пользователя, для просмотра статистики.', 2);
     	function ShowContent() {
             echo '<h2 align="center">Статистика</h2> 
-                <div align="center"><b>Введите логин пользователя: </b><input id="enteruserstat" size="8" placeholder="login"></input>
+                <div align="center"><b>Введите логин пользователя: </b><input id="enteruserstat" size="8" pattern="[A-za-z-0-9]{3,15}" placeholder="login"></input>
                 <button id="butuserstat"> Просмотреть </button>
                 </div>
                 <script>$(\'#butuserstat\').click(function(){

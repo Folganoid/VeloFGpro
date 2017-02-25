@@ -51,9 +51,9 @@ if (isset($_SESSION['USER_ID'])) {
         <TR><TD class="colordarkblue">Время<span class="colordarkred">*</span>:</TD>
             <TD><INPUT id="form1hr" name="form1hr" SIZE=2 maxlength="2" pattern="[0-9]{1,2}" placeholder="00" required>ч <INPUT id="form1min" name="form1min" SIZE=2 maxlength="2" pattern="[0-9]{1,2}" placeholder="00" required>мин <INPUT id="form1sec" name="form1sec" SIZE=2 maxlength="2" pattern="[0-9]{1,2}" placeholder="00" required>сек</TD></TR>
         <TR><TD>Средняя скорость<span class="colordarkred">*</span>:</TD>
-            <TD><INPUT id="form1avgspd" name="form1avgspd" SIZE=5 maxlength="6" pattern="\d+(\.\d{2})?" placeholder="0.00" required>км/ч</TD></TR>
+            <TD><INPUT id="form1avgspd" name="form1avgspd" SIZE=5 maxlength="6" pattern="\d+(\.\d{1,2})?" placeholder="0.00" required>км/ч</TD></TR>
         <TR><TD>Макс.скорость:</TD>
-            <TD><INPUT name="form1maxspd" SIZE=5 maxlength="6" pattern="\d+(\.\d{2})?" placeholder="0.00">км/ч</TD></TR>
+            <TD><INPUT name="form1maxspd" SIZE=5 maxlength="6" pattern="\d+(\.\d{1,2})?" placeholder="0.00">км/ч</TD></TR>
         <TR><TD class="colorpurple">Средний пульс:</TD>
             <TD><INPUT name="form1avgpls" SIZE=3 maxlength="3" pattern="[0-9]{0,3}" placeholder="0">уд/мин</TD></TR>
         <TR><TD class="colorpurple">Макс.пульс:</TD>

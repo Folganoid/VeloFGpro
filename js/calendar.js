@@ -30,7 +30,7 @@ window.onload = function() {
         for(var  i = 1; i <= Dlast; i++) {
 
             if ((valid(i) === 0) || (valid(i))){
-                calendar += '<td class="today" title="'+jsonStatData[valid(i)][14]+' ('+jsonStatData[valid(i)][1]+' км)"><a style="text-decoration: none; color: white; outline: none;" href="/statistic/'+jsonStatData[valid(i)][0]+'" Target="_blank"><div>' + i +'</div></a></td>';
+                calendar += '<td class="today" title="'+jsonStatData[valid(i)][14]+' ('+jsonStatData[valid(i)][1]+' км)"><a style="text-decoration: none; color: white; outline: none;" href="/statenhance/'+jsonStatData[valid(i)][0]+'" Target="_blank"><div>' + i +'</div></a></td>';
             }else{
                 calendar += '<td>' + i;
             }
