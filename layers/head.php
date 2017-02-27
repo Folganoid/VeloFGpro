@@ -2,6 +2,7 @@
 <html lang="ru">
   <head>
     <meta charset="utf-8">
+    <link rel="shortcut icon" href="/img/f.ico" type="image/x-icon">
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
     <script src="/js/jquery-3.1.1.min.js"></script>

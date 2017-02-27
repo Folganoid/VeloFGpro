@@ -14,7 +14,7 @@ ymaps.ready(function () {
                 .add(new ymaps.Placemark([mapData[i][2], mapData[i][3]], {
                     balloonContent: '<h4 align="center">' + mapData[i][4] + '</h4><p>' + mapData[i][5] + '</p>' +
                     '<dd>Координаты: ' + mapData[0][2] + ', ' + mapData[0][3] + '</dd>' +
-                    '<dd><a href="' + mapData[i][6] + '">подробнее...</a></dd>'
+                    '<dd><a href="' + mapData[i][6] + '" target="_blank">подробнее...</a></dd>'
                 }, {
                     preset: 'islands#dotIcon',
                     iconColor: mapData[i][7]

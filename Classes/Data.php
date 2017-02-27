@@ -12,6 +12,7 @@ class Data extends Main
     public static $tss;
     public static $yearOdo;
     public static $id;
+    public static $markerList;
 
     function __construct($id)
     {
@@ -28,6 +29,8 @@ class Data extends Main
         self::$tss = $this->result;
         $this->db("SELECT `id`, `year`, `bike`, `dist` FROM `yeardata` WHERE `userid` = '".self::$id."' ORDER BY `year` DESC;");
         self::$yearOdo = $this->result;
+        $this->db("SELECT `id`, `name`, `x`, `y`, `color` FROM `markers` WHERE `userid` = '".self::$id."' ORDER BY `name`;");
+        self::$markerList = $this->result;
         echo '<script>$("#form1").load("#form1"); </script>';
     }
 
@@ -55,6 +58,12 @@ class Data extends Main
     public static function getOdo() {
         foreach(self::$yearOdo as $key=>$value){
             echo '<tr><td class="colordarkblue">'.$value[1].'</td><td>'.$value[2].'</td><td class="colordarkred">'.$value[3].' км</td><td><form method="POST"><button name="delodo" type="submit" value="'.$value[0].'">удалить</button></form></td></tr>';
+        };
+    }
+
+    public static function getMarkers() {
+        foreach(self::$markerList as $key=>$value){
+            echo '<tr><td><b style="color: '.$value[4].';">'.$value[1].'</b></td><td>'.$value[2].'</td><td>,</td><td>'.$value[3].'</td><td><form method="POST"><button name="delmark" type="submit" value="'.$value[0].'">удалить</button></form></td></tr>';
         };
     }
 
@@ -100,18 +109,18 @@ class Data extends Main
             $avgpls = static::PostSecure($_POST['form1avgpls']);
             $maxpls = static::PostSecure($_POST['form1maxpls']);
             $temp = static::PostSecure($_POST['form1temp']);
-            $asf = +static::PostSecure($_POST['form1asf']);
-            $tvp = +static::PostSecure($_POST['form1tvp']);
-            $grnt = +static::PostSecure($_POST['form1grnt']);
-            $bzd = +static::PostSecure($_POST['form1bzd']);
+            $asf = static::PostSecure($_POST['form1asf']);
+            $tvp = static::PostSecure($_POST['form1tvp']);
+            $grnt = static::PostSecure($_POST['form1grnt']);
+            $bzd = static::PostSecure($_POST['form1bzd']);
             $teh = static::PostSecure($_POST['form1content']);
-            if(isset($_POST['form1tire'])) $ts = static::PostSecure($_POST['form1tire']);
+            if(isset($_POST['form1tire'])) $tire = static::PostSecure($_POST['form1tire']);
                 else $tire = "";
 
             if (!$avgpls) $avgpls = 0;
             if (!$maxspd) $maxspd = 0;
             if (!$maxpls) $maxpls = 0;
-            if (!$asf) $asf = 0;
+            if ($asf) $asf = 0;
             if (!$tvp) $tvp = 0;
             if (!$grnt) $grnt = 0;
             if (!$bzd) $bzd = 0;
@@ -132,7 +141,7 @@ class Data extends Main
                         MessageShow::set('Указано некорректное время', 1);
                         MessageShow::get();
                     } else {
-                        if ($asf + $tvp + $grnt + $bzd != 100) {
+                        if (+$asf + +$tvp + +$grnt + +$bzd != 100) {
                             MessageShow::set('Сумма процентов покрытия не равняется 100', 1);
                             MessageShow::get();
                         }
@@ -148,25 +157,46 @@ class Data extends Main
             }
         };
 
+        if (isset($_POST['enter']) && ($_POST['id_form'] == "form5")) {
+            $name5 = static::PostSecure($_POST['form5name']);
+            $subname5 = static::PostSecure($_POST['form5subname']);
+            $x5 = static::PostSecure($_POST['form5x']);
+            $y5 = static::PostSecure($_POST['form5y']);
+            $link5 = static::PostSecure($_POST['form5link']);
+                (substr($link5, 0, 4) == "http") ? ($link5 = $link5) : $link5 = "http://" . $link5;
+
+            $color = static::PostSecure($_POST['form5color']);
+
+                $this->db("INSERT INTO `markers` VALUES (NULL, " . $_SESSION['USER_ID'] . ", " . $x5 . ", " . $y5 . ", '" . $name5 . "', '" . $subname5 . "', '" . $link5 . "', '" . $color . "');");
+                MessageShow::set('Маркер успешно добавлен', 3);
+                $this->Reload();
+            }
+
     }
 
     private function delCell() {
         if (isset($_POST['deltire'])) {
             $deltire = static::PostSecure($_POST['deltire']);
             $this->db("DELETE FROM `tire` WHERE `id` =".$deltire.";");
-            MessageShow::set('Данные удалены!', 2);
+            MessageShow::set('Резина удалена!', 2);
             $this->Reload();
         };
         if (isset($_POST['delts'])) {
             $delts = static::PostSecure($_POST['delts']);
             $this->db("DELETE FROM `ts` WHERE `id` =".$delts.";");
-            MessageShow::set('Данные удалены!', 2);
+            MessageShow::set('Транспорт удален!', 2);
             $this->Reload();
         };
         if (isset($_POST['delodo'])) {
             $delodo = static::PostSecure($_POST['delodo']);
             $this->db("DELETE FROM `yeardata` WHERE `id` =".$delodo.";");
-            MessageShow::set('Данные удалены!', 2);
+            MessageShow::set('Годовые данные удалены!', 2);
+            $this->Reload();
+        };
+        if (isset($_POST['delmark'])) {
+            $delmark = static::PostSecure($_POST['delmark']);
+            $this->db("DELETE FROM `markers` WHERE `id` =".$delmark.";");
+            MessageShow::set('Маркер удален!', 2);
             $this->Reload();
         };
 
