@@ -29,7 +29,7 @@ class Data extends Main
         self::$tss = $this->result;
         $this->db("SELECT `id`, `year`, `bike`, `dist` FROM `yeardata` WHERE `userid` = '".self::$id."' ORDER BY `year` DESC;");
         self::$yearOdo = $this->result;
-        $this->db("SELECT `id`, `name`, `x`, `y`, `color` FROM `markers` WHERE `userid` = '".self::$id."' ORDER BY `name`;");
+        $this->db("SELECT `id`, `name`, `x`, `y`, `color`, `link` FROM `markers` WHERE `userid` = '".self::$id."' ORDER BY `name`;");
         self::$markerList = $this->result;
         echo '<script>$("#form1").load("#form1"); </script>';
     }
@@ -63,7 +63,7 @@ class Data extends Main
 
     public static function getMarkers() {
         foreach(self::$markerList as $key=>$value){
-            echo '<tr><td><b style="color: '.$value[4].';">'.$value[1].'</b></td><td>'.$value[2].'</td><td>,</td><td>'.$value[3].'</td><td><form method="POST"><button name="delmark" type="submit" value="'.$value[0].'">удалить</button></form></td></tr>';
+            echo '<tr><td><b style="color: '.$value[4].';">'.$value[1].'</b></td><td>'.$value[2].'</td><td>,</td><td>'.$value[3].'</td><td><a href="'.$value[5].'" target="_blank">Ссылка...</a></td><td><form method="POST"><button name="delmark" type="submit" value="'.$value[0].'">удалить</button></form></td></tr>';
         };
     }
 

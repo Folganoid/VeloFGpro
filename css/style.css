@@ -256,6 +256,11 @@ body {
 	font-size: 11px;
 }
 
+.datatable table tr td {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
 .tablestatenhance {
 	margin-left: 20px;
 	font-weight: bold;
@@ -306,5 +311,22 @@ body {
 #butdel3:hover {
 	color: white;
 	text-shadow: 0 0 0.2em red, 0 0 0.2em red, 0 0 0.2em red;
+}
+
+.chattable tr td{
+	white-space: nowrap;
+	vertical-align: top;
+}
+
+.chat {
+	max-height: 605px;
+	overflow: auto;
+
+}
+
+.profiletable tr td{
+	font-size: 16px;
+	padding: 5px;
+
 }
 

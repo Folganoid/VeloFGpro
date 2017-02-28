@@ -25,7 +25,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">VeloFG</a>
+                <a class="navbar-brand" href="/"><img src="/img/velo.png" /></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
