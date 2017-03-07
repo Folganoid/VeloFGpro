@@ -63,7 +63,7 @@ class Data extends Main
 
     public static function getMarkers() {
         foreach(self::$markerList as $key=>$value){
-            echo '<tr><td><b style="color: '.$value[4].';">'.$value[1].'</b></td><td>'.$value[2].'</td><td>,</td><td>'.$value[3].'</td><td><a href="'.$value[5].'" target="_blank">Ссылка...</a></td><td><form method="POST"><button name="delmark" type="submit" value="'.$value[0].'">удалить</button></form></td></tr>';
+            echo '<tr><td><b style="color: '.$value[4].';">'.$value[1].'</b></td><td>'.$value[2].'</td><td>,</td><td>'.$value[3].'</td><td><a href="'.$value[5].'" target="_blank">Ссылка...</a></td><td><form method="POST"><button name="delmark" type="submit" value="'.$value[0].'">Удалить</button></form></td><td><a href="/markers/'.$value[0].'">Изменить</a></td></tr>';
         };
     }
 
@@ -120,7 +120,7 @@ class Data extends Main
             if (!$avgpls) $avgpls = 0;
             if (!$maxspd) $maxspd = 0;
             if (!$maxpls) $maxpls = 0;
-            if ($asf) $asf = 0;
+            if (!$asf) $asf = 0;
             if (!$tvp) $tvp = 0;
             if (!$grnt) $grnt = 0;
             if (!$bzd) $bzd = 0;

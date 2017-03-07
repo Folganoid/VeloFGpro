@@ -219,7 +219,7 @@ if(isset(Route::$url_parts[1])) {
                                     <td width="10%"><b class="colordarkblue">{{transDate(cell[0])}}</b></td>
                                     <td width="15%">{{cell[2]}}</td>
                                     <td width="67%" align="justify">{{cell[1]}}</td>
-                                    <td width="8%" class="cellright colordarkred"><b>{{cell[3].toFixed(2)}}км</b></td>
+                                    <td width="8%" class="cellright"><b class="colordarkred">{{cell[3].toFixed(2)}}км</b></td>
                                 </tr>
                             </table>               
                             </div>

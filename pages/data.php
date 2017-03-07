@@ -89,6 +89,43 @@ if (isset($_SESSION['USER_ID'])) {
   
   <div class="otboynik"></div>
   
+          <br>
+            <div class="row">
+       		<h4 align="center">ДОБАВИТЬ МАРКЕР НА КАРТУ</h4>
+       		<FORM method="post" action="/data" NAME="form5">
+       		<table>
+       		    <tr><td>Наименование<span class="colordarkred">*</span>:</td>
+       		    <td><INPUT name="form5name" SIZE="25" maxlength="30" required></INPUT></td></tr>   		
+       		    <tr><td>Описание:</td>
+       		    <td><INPUT name="form5subname" SIZE="25" maxlength="100"></INPUT></td></tr>
+                <tr><td>Координаты<span class="colordarkred">*</span>:</td>
+       		    <td><INPUT name="form5x" SIZE="10" maxlength="15" pattern="\d{1,2}(\.\d+)?"required></INPUT>, <INPUT name="form5y" SIZE="10" maxlength="15" pattern="\d{1,2}(\.\d+)?" required></INPUT></td></tr>
+                <tr><td>Ссылка на внешний ресурс:</td>
+       		    <td><INPUT name="form5link" SIZE="30" placeholder="http://"></INPUT></td></tr>
+                <tr><td>Цвет маркера<span class="colordarkred">*</span>:</td>
+       		    <td><select name="form5color" required>
+                <option style="color: black;" value="black">Черный</option>
+                <option style="color: red;" value="red">Красный</option>
+                <option style="color: blue;" value="blue">Синий</option>
+                <option style="color: purple;" value="purple">Пурпурный</option>
+                <option style="color: green;" value="green">Зеленый</option>
+                <option style="color: orange;" value="orange">Оранжевый</option>
+                <option style="color: grey;" value="grey">Серый</option>
+                </select></td></tr>
+       		</table>
+       		        <input name="id_form" type="hidden" value="form5"></input>
+    				<INPUT TYPE="submit" name="enter" VALUE="Добавить"></input> 
+    				<INPUT TYPE="reset" VALUE="Сброс"></input>
+			</FORM>
+            <div class="datatable">
+			<table align="left">';
+        Data::getMarkers();
+        echo '
+		</table>
+		</div>
+		<div class="otboynik"></div>
+		</div>
+  
   </div>
   
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
@@ -155,43 +192,6 @@ if (isset($_SESSION['USER_ID'])) {
 		</div>
 		<div class="otboynik"></div>
         </div>
-        
-        <br>
-            <div class="row">
-       		<h4 align="center">ДОБАВИТЬ МАРКЕР НА КАРТУ</h4>
-       		<FORM method="post" action="/data" NAME="form5">
-       		<table>
-       		    <tr><td>Наименование<span class="colordarkred">*</span>:</td>
-       		    <td><INPUT name="form5name" SIZE="25" maxlength="30" required></INPUT></td></tr>   		
-       		    <tr><td>Описание:</td>
-       		    <td><INPUT name="form5subname" SIZE="25" maxlength="100"></INPUT></td></tr>
-                <tr><td>Координаты<span class="colordarkred">*</span>:</td>
-       		    <td><INPUT name="form5x" SIZE="10" maxlength="15" pattern="\d{1,2}(\.\d+)?"required></INPUT>, <INPUT name="form5y" SIZE="10" maxlength="15" pattern="\d{1,2}(\.\d+)?" required></INPUT></td></tr>
-                <tr><td>Ссылка на внешний ресурс:</td>
-       		    <td><INPUT name="form5link" SIZE="30" placeholder="http://"></INPUT></td></tr>
-                <tr><td>Цвет маркера<span class="colordarkred">*</span>:</td>
-       		    <td><select name="form5color" required>
-                <option style="color: black;" value="black">Черный</option>
-                <option style="color: red;" value="red">Красный</option>
-                <option style="color: blue;" value="blue">Синий</option>
-                <option style="color: purple;" value="purple">Пурпурный</option>
-                <option style="color: green;" value="green">Зеленый</option>
-                <option style="color: orange;" value="orange">Оранжевый</option>
-                <option style="color: grey;" value="grey">Серый</option>
-                </select></td></tr>
-       		</table>
-       		        <input name="id_form" type="hidden" value="form5"></input>
-    				<INPUT TYPE="submit" name="enter" VALUE="Добавить"></input> 
-    				<INPUT TYPE="reset" VALUE="Сброс"></input>
-			</FORM>
-            <div class="datatable">
-			<table align="left">';
-        Data::getMarkers();
-        echo '
-		</table>
-		</div>
-		<div class="otboynik"></div>
-		</div>
         
 	
 	</div>
