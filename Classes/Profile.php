@@ -47,4 +47,11 @@ class Profile extends Main
     private function addDb($name, $email, $year, $pass) {
         $this->db('UPDATE users SET `name` = "'.$name.'", `email` = "'.$email.'", `year` = '.$year.', `pass`="'.$pass.'" WHERE id = '.$_SESSION['USER_ID'].';');
     }
+
+    public function getUserInfo($login) {
+        $this->db("SELECT * FROM `users` WHERE login = '".$login."';");
+        return $this->result;
+
+    }
+
 }

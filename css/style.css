@@ -330,3 +330,15 @@ body {
 
 }
 
+.userLink {
+	color: darkblue;
+	font-weight: bold;
+}
+
+.userLink:hover{
+	color: rgb(240,240,240);
+	text-shadow: 0 0 0.2em red, 0 0 0.2em red, 0 0 0.2em red;
+	font-weight: bold;
+	text-decoration: none;
+}
+
