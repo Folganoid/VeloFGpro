@@ -15,6 +15,7 @@ class Chat extends Main
     {
         $this->getContent();
         $this->addToDB();
+        $this->refresh();
     }
 
     private function getContent() {
@@ -24,8 +25,11 @@ class Chat extends Main
 
     private function addToDB() {
         if (isset($_POST['enter']) && ($_POST['id_form'] == "formchat") && isset($_SESSION['USER_LOGIN'])) {
-            $this->db("INSERT INTO `chat` VALUES (NULL, '" . $_SESSION['USER_LOGIN'] . "', NOW(), '" . static::PostSecure($_POST['text']) . "');");
-            $this->getContent();
+            if(strlen($_POST['text']) > 0) {
+                $this->db("INSERT INTO `chat` VALUES (NULL, '" . $_SESSION['USER_LOGIN'] . "', NOW(), '" . static::PostSecure($_POST['text']) . "');");
+                $this->getContent();
+            }
+
         }
         else if (isset($_POST['enter']) && ($_POST['id_form'] == "formchat")) {
             MessageShow::set('Только зарегестрированные пользователи могут отправлять сообщения.', 1);
@@ -39,4 +43,14 @@ class Chat extends Main
         };
         echo '</table>';
     }
+
+    private function refresh() {
+        if (isset($_POST['refresh']) && ($_POST['id_form'] == "formchat")) {
+            $this->getContent();
+        };
+
+    }
+
+
+
 }

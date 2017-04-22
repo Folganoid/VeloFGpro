@@ -7,10 +7,11 @@ function ShowContent() {
 
 	<br>
 	<FORM method="post" action="" NAME="formchat">
-		<INPUT name="text" placeholder="Введите текст..." SIZE=40 maxlength="256" required />
+		<INPUT name="text" placeholder="Введите текст..." SIZE=40 maxlength="256" />
 		
 		    <input name="id_form" type="hidden" value="formchat"></input>
-		    <INPUT TYPE="submit" name="enter" VALUE="Отправить"></input> 
+		    <INPUT TYPE="submit" name="enter" VALUE="Отправить"></input>
+		    <INPUT TYPE="submit" name="refresh" VALUE="Обновить"></input>
 	</FORM>
 	<br>
 ';
@@ -21,6 +22,7 @@ function ShowContent() {
 
 	</div>
 	<br>
+	
 	';
 };
 

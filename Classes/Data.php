@@ -63,7 +63,9 @@ class Data extends Main
 
     public static function getMarkers() {
         foreach(self::$markerList as $key=>$value){
-            echo '<tr><td><b style="color: '.$value[4].';">'.$value[1].'</b></td><td>'.$value[2].'</td><td>,</td><td>'.$value[3].'</td><td><a href="'.$value[5].'" target="_blank">Ссылка...</a></td><td><form method="POST"><button name="delmark" type="submit" value="'.$value[0].'">Удалить</button></form></td><td><a href="/markers/'.$value[0].'">Изменить</a></td></tr>';
+            echo '<tr><td><b style="color: '.$value[4].';">'.$value[1].'</b></td><td>'.$value[2].'</td><td>,</td><td>'.$value[3].'</td><td><a class= "';
+            echo ($value[5] != "") ? "" : "hide";
+            echo '" href="'.$value[5].'" target="_blank">Ссылка...</a></td><td><form method="POST"><button name="delmark" type="submit" value="'.$value[0].'">Удалить</button></form></td><td><a href="/markers/'.$value[0].'">Изменить</a></td></tr>';
         };
     }
 
@@ -132,7 +134,7 @@ class Data extends Main
                 MessageShow::get();
             }
             else {
-                if (!checkdate(static::PostSecure($_POST['form1month']), static::PostSecure($_POST['form1day']), static::PostSecure($_POST['form1year']))) {
+                if (!checkdate(static::PostSecure($_POST['form1month'] + 1), static::PostSecure($_POST['form1day']), static::PostSecure($_POST['form1year']))) {
                     MessageShow::set('Указана некорректная дата', 1);
                     MessageShow::get();
 
@@ -163,8 +165,13 @@ class Data extends Main
             $x5 = static::PostSecure($_POST['form5x']);
             $y5 = static::PostSecure($_POST['form5y']);
             $link5 = static::PostSecure($_POST['form5link']);
-                (substr($link5, 0, 4) == "http") ? ($link5 = $link5) : $link5 = "http://" . $link5;
-
+            if (substr($link5, 0, 7) == "http://") {
+                $link5 = substr($link5, 7);
+            }
+            if (substr($link5, 0, 8) == "https://") {
+                $link5 = substr($link5, 8);
+            }
+            $link5 = "http://" . $link5;
             $color = static::PostSecure($_POST['form5color']);
 
                 $this->db("INSERT INTO `markers` VALUES (NULL, " . $_SESSION['USER_ID'] . ", " . $x5 . ", " . $y5 . ", '" . $name5 . "', '" . $subname5 . "', '" . $link5 . "', '" . $color . "');");

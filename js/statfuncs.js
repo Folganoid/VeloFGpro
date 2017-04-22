@@ -170,7 +170,7 @@ function avgsSpeedChart(arr) {
             title: {
                 text: 'Скорость (км/ч)'
             },
-            min: 10
+            min: 0
         },
         tooltip: {
             headerFormat: '<b>{series.name}</b><br>',
