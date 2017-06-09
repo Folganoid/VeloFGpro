@@ -35,15 +35,30 @@ if(isset(Route::$url_parts[1])) {
 
         <?php
 
-    	echo '
+        echo '
+        <div id="map"></div>
+        <script src="/js/map.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEF7mhKBOcKf3DOomC3CPSq8htToAlZ84&callback=initMap" async defer></script>
+        
+        <div id="map_info" class="hide">
+        <dd><b id="map_name"></b></dd>
+        <dd>Примечание: <span id="map_notice"></span></dd>
+        <dd>Координаты: <span class="colordarkred" id="map_cord"></span></dd>
+        <dd>Ссылка: <a id="map_link" href="#">Перейти...</a></dd>
+        </div>
+                
+        ';
 
+    	/*
+    	 * for Yandex Map API
+    	 *
+    	 * echo '
 			<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 			<script src="/js/map.js"></script>
 
 			<div id="map" style=""></div>
 			<script>$("#map").attr("style", "width: 100%; height: " + (+window.innerHeight - 200) + "px");</script>
-
-		';
+		';*/
 
         }
     }

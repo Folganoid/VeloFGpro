@@ -90,6 +90,7 @@ if(isset(Route::$url_parts[1])) {
                             <tr><td align="left">Общее время</td><td><b class="colordarkblue">{{cell.time[0]+"ч "+cell.time[1]+"м "+cell.time[2]+"с"}}</b></td></tr>
                             <tr><td align="left">Средняя дистанция</td><td><b class="colordarkred">{{cell.avgdist.toFixed(2)}}км</b></td></tr>
                             <tr><td align="left">Среднее время</td><td><b class="colordarkblue">{{cell.avgtime[0]+":"+cell.avgtime[1]+":"+cell.avgtime[2]}}</b></td></tr>
+                            <tr class="colorblack"><td align="left">Всего выездов</td><td><b>{{cell.count}}</b></td></tr>
                         </table>
                         <br>
                         <table class="statdisttable" width="100%">
@@ -190,11 +191,12 @@ if(isset(Route::$url_parts[1])) {
                         <h2 align="center">Таблица данных</h2>
                             <div align="left">
                             <input ng-model="$ctrl.query" placeholder="Фильтр"></input>
+                            <span> Всего записей: <b class="colorblack">{{ filtered.length }}</b></span>
                             </div>   
                             <div class="trimtable">
                             <table class="totaltable" border="1">
                             <tr class="tablehead"><td>Дата</td><td>ТС</td><td>Описание</td><td>Время</td><td>Дистанция</td><td>Темп.</td><td>Ссылка</td><td>ТО</td></tr>
-                                <tr ng-repeat="cell in statData | filter:$ctrl.query">
+                                <tr ng-repeat="cell in statData | filter:$ctrl.query as filtered">
                                     <td width="10%" class="colordarkblue"><b>{{transDate(cell[9])}}</b></td>
                                     <td  width="15%">{{cell[3]}}</td>
                                     <td width="40%">{{cell[14]}}</td>
@@ -211,11 +213,14 @@ if(isset(Route::$url_parts[1])) {
                         <div class="container">
                         <h7>&nbsp;</h7>
                         <h2 align="center">Технический дневник</h2>
-                            <div align="left"><input ng-model="$ctrl.query2" placeholder="Фильтр"></input></div>
+                            <div align="left">
+                                <input ng-model="$ctrl.query2" placeholder="Фильтр"></input>
+                                <span> Всего записей: <b class="colorblack">{{ filtered2.length }}</b></span>
+                            </div>
                             <div class="trimtable">
                             <table class="tehtable" border="1">
                             <tr class="tablehead"><td>Дата</td><td>ТС</td><td>Описание</td><td>Дистанция</td></tr>
-                                <tr ng-repeat="cell in tehArr | filter:$ctrl.query2">
+                                <tr ng-repeat="cell in tehArr | filter:$ctrl.query2 as filtered2">
                                     <td width="10%"><b class="colordarkblue">{{transDate(cell[0])}}</b></td>
                                     <td width="15%">{{cell[2]}}</td>
                                     <td width="67%" align="justify">{{cell[1]}}</td>
