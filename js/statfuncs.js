@@ -245,9 +245,11 @@ function highChartOdoTotal(arr) { // график общего наката по
 };
 
 function timeInSec(str) {
-    var hr = +str.substr(0,2);
-    var min = +str.substr(3,2);
-    var sec = +str.substr(6,2);
+    var strTmp;
+    strTmp = str.split(':');
+    var hr = +strTmp[0];
+    var min = +strTmp[1];
+    var sec = +strTmp[2];
     return sec+min*60+hr*3600;
 };
 

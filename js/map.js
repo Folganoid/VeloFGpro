@@ -76,6 +76,7 @@ $('#map').attr('style', 'weight: 100%; height: '+ windowHeight +'px');
                     $('#map_notice').text(mapData[cnt][5]);
                     $('#map_cord').text(mapData[cnt][2] + ', ' + mapData[cnt][3]);
                     $('#map_link').attr('href', mapData[cnt][6]);
+                    $('#map_edit').attr('href', '/markers/' + mapData[cnt][0]);
                 }
 
                 toggleBounce();

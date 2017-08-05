@@ -41,7 +41,7 @@ if(isset(Route::$url_parts[1])) {
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEF7mhKBOcKf3DOomC3CPSq8htToAlZ84&callback=initMap" async defer></script>
         
         <div id="map_info" class="hide">
-        <dd><b id="map_name"></b></dd>
+        <dd><b id="map_name"></b> (<a id="map_edit" href="#">Редактировать</a>)</dd>
         <dd>Примечание: <span id="map_notice"></span></dd>
         <dd>Координаты: <span class="colordarkred" id="map_cord"></span></dd>
         <dd>Ссылка: <a id="map_link" href="#">Перейти...</a></dd>

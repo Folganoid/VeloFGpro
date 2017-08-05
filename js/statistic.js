@@ -77,9 +77,9 @@ angular
             var mn = date.slice(5, 7);
             var dy = date.slice(8, 10);
 
-            var mnnum = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
+            var mnnum = ['.01.', '.02.', '.03.', '.04.', '.05.', '.06.', '.07.', '.08.', '.09.', '.10.', '.11.', '.12.'];
 
-            return dy+" "+mnnum[+mn-1]+"."+yr;
+            return dy+mnnum[+mn-1]+yr;
         };
 
         function pulseZ(){

@@ -14,7 +14,7 @@ class View {
 			echo '
                 <a href="/register">(Регистрация) </a>
 				<input size="8" placeholder="login" name="login"></input>
-				<input size="8" placeholder="password" name="password"></input>
+				<input size="8" placeholder="password" type="password" name="password"></input>
 				<input name="enter" type="submit" value="Войти"></input>
 				<input title="запомнить меня" type="checkbox" name="check" value="Yes" /checked></input>
 			';
